@@ -1,17 +1,34 @@
-<div class="header-container-flex">
-<a routerLink="/"  class="header-logo-title">
-  <img class="header-logo" src="Storefront.png" alt="logo">
-  <h1 class="header-title">Elsoq</h1>
-</a>
-<div class="header-main-pages">
-  <a [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" routerLink="/" class="header-main-page">Home</a>
-  <a routerLinkActive="active" routerLink="/topseller" class="header-main-page">Top Seller</a>
-  <a routerLinkActive="active" routerLink="/signup" class="header-main-page">
-    Sign Up
+<header class="header-container-flex">
+  <div class="header-main-pages-first-part">
+    <a routerLinkActive="active" routerLink="/product" class="header-main-page">Product</a>
+    <a routerLinkActive="active" routerLink="/topseller" class="header-main-page">Top Seller</a>
+  </div>
+
+  <a routerLink="/" class="header-logo-title">
+    <img class="header-logo" src="Storefront.png" alt="logo" />
+    <h1 class="header-title">Elsoq</h1>
   </a>
-  <a routerLinkActive="active" routerLink="/cart" class="cart-button">
+
+  <div class="header-main-pages-second-part">
+    <a routerLinkActive="active" routerLink="/signup" class="header-main-page">Sign Up</a>
+    <a routerLinkActive="active" routerLink="/cart" class="cart-button">
       <p class="cart-item-count">1</p>
-      <img class="header-logo cart-logo" src="shopping-cart.png" alt="user">
-  </a>
-</div>
-</div>
+      <img class="header-logo cart-logo" src="shopping-cart.png" alt="cart" />
+    </a>
+  </div>
+
+  <div class="menu-container">
+    <button class="main-pages-menu" (click)="toggleMenu()">
+      <img src="menu.png" alt="menu" />
+    </button>
+  </div>
+  <div *ngIf="menuOpen" class="menu-items">
+    <a routerLink="/product" (click)="toggleMenu()" class="header-main-page">Product</a>
+    <a routerLink="/topseller" (click)="toggleMenu()" class="header-main-page">Top Seller</a>
+    <a routerLink="/signup" (click)="toggleMenu()" class="header-main-page">Sign Up</a>
+    <a routerLink="/cart" (click)="toggleMenu()" class="cart-button">
+      <p class="cart-item-count">1</p>
+      <img class="header-logo cart-logo" src="shopping-cart.png" alt="cart" />
+    </a>
+  </div>
+</header>
