@@ -17,10 +17,12 @@ import {
   NgSwitchCase,
   NgSwitchDefault,
 } from '@angular/common';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
   selector: 'app-root',
   imports: [
+    HeaderComponent,
     RouterOutlet,
     RouterLink,
     CommonModule,
