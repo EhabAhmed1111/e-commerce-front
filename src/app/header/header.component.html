@@ -1,4 +1,4 @@
-<header class="header-container-flex">
+<header class="header-container-flex not-selectable not-dragable">
   <div class="header-main-pages-first-part">
     <a routerLinkActive="active" routerLink="/product" class="header-main-page">Product</a>
     <a routerLinkActive="active" routerLink="/topseller" class="header-main-page">Top Seller</a>
@@ -9,7 +9,7 @@
     <h1 class="header-title">Elsoq</h1>
   </a>
 
-  <div class="header-main-pages-second-part">
+  <div class="header-main-pages-second-part ">
     <a routerLinkActive="active" routerLink="/signup" class="header-main-page">Sign Up</a>
     <a routerLinkActive="active" routerLink="/cart" class="cart-button">
       <p class="cart-item-count">1</p>
@@ -17,12 +17,12 @@
     </a>
   </div>
 
-  <div class="menu-container">
+  <div class="menu-container ">
     <button class="main-pages-menu" (click)="toggleMenu()">
       <img src="menu.png" alt="menu" />
     </button>
   </div>
-  <div *ngIf="menuOpen" class="menu-items">
+  <div *ngIf="menuOpen" class="menu-items ">
     <a routerLink="/product" (click)="toggleMenu()" class="header-main-page">Product</a>
     <a routerLink="/topseller" (click)="toggleMenu()" class="header-main-page">Top Seller</a>
     <a routerLink="/signup" (click)="toggleMenu()" class="header-main-page">Sign Up</a>
