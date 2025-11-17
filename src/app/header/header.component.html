@@ -1,0 +1,17 @@
+<div class="header-container-flex">
+<a routerLink="/"  class="header-logo-title">
+  <img class="header-logo" src="Storefront.png" alt="logo">
+  <h1 class="header-title">Elsoq</h1>
+</a>
+<div class="header-main-pages">
+  <a [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active" routerLink="/" class="header-main-page">Home</a>
+  <a routerLinkActive="active" routerLink="/topseller" class="header-main-page">Top Seller</a>
+  <a routerLinkActive="active" routerLink="/signup" class="header-main-page">
+    Sign Up
+  </a>
+  <a routerLinkActive="active" routerLink="/cart" class="cart-button">
+      <p class="cart-item-count">1</p>
+      <img class="header-logo cart-logo" src="shopping-cart.png" alt="user">
+  </a>
+</div>
+</div>
