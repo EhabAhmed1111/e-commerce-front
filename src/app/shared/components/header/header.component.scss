@@ -4,7 +4,6 @@ a {
   color: inherit;
 }
 
-/* ===== Base (Mobile styles first) ===== */
 .header-container-flex {
   display: flex;
   justify-content: space-between;
@@ -16,7 +15,6 @@ a {
   z-index: 10;
 }
 
-/* Logo + title */
 .header-logo-title {
   display: flex;
   align-items: center;
@@ -35,13 +33,11 @@ a {
   font-size: 1.5rem;
 }
 
-/* Hide the main page sections initially (on mobile) */
 .header-main-pages-first-part,
 .header-main-pages-second-part {
   display: none;
 }
 
-/* Cart button + links share mobile styling */
 .header-main-page {
   background-color: #1f1d1d;
   padding: 10px 15px;
@@ -88,7 +84,6 @@ a {
   }
 }
 
-/* ===== Mobile Navigation Menu ===== */
 .menu-container {
   display: block;
 }
@@ -101,7 +96,6 @@ a {
   padding: 8px;
 }
 
-/* Sliding dropdown menu */
 .menu-items {
   position: absolute;
   top: 70px;
@@ -128,15 +122,14 @@ a {
   }
 }
 
-/* ===== Desktop / larger screens (progressive enhancement) ===== */
 @media (min-width: 769px) {
   .menu-container {
-    display: none; /* Hide the hamburger on desktop */
+    display: none; 
   }
 
   .header-main-pages-first-part,
   .header-main-pages-second-part {
-    display: flex; /* Show full navigation */
+    display: flex; 
     align-items: center;
     gap: 10px;
   }
