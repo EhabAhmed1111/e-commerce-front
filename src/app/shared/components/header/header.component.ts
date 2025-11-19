@@ -9,12 +9,12 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-menuOpen = false;
+isMenuOpen = false;
 /**todo 
  * here i need to get back end api to get cart item count
  * but first i need to login and signup api first 
  */
 toggleMenu() {
-  this.menuOpen = !this.menuOpen
+  this.isMenuOpen = !this.isMenuOpen;
 }
 }

@@ -1,35 +1,35 @@
-<header class="header-container-flex not-selectable not-dragable">
-  <div class="header-main-pages-first-part">
-    <a routerLinkActive="active" routerLink="/product" class="header-main-page">Product</a>
-    <a routerLinkActive="active" routerLink="/topseller" class="header-main-page">Top Seller</a>
-  </div>
+<div class="header-section flex-between ">
 
-  <a routerLink="/" class="header-logo-title">
-    <img class="header-logo" src="Storefront.png" alt="logo" />
-    <h1 class="header-title">Elsoq</h1>
-  </a>
+<div class="home-product">
+<a class="home-button">Home</a>
+<a class="product-button">Products</a>
+</div>
 
-  <div class="header-main-pages-second-part ">
-    <a routerLinkActive="active" routerLink="/signup" class="header-main-page">Sign Up</a>
-    <a routerLinkActive="active" routerLink="/cart" class="cart-button">
-      <!-- todo(get cart item from back) -->
-      <p class="cart-item-count">1</p>
-      <img class="header-logo cart-logo" src="shopping-cart.png" alt="cart" />
-    </a>
-  </div>
+<div class="logo-title">
+<a class="title-text">
+ElsoooQ
+</a>
+</div>
 
-  <div class="menu-container ">
-    <button class="main-pages-menu" (click)="toggleMenu()">
-      <img src="menu.png" alt="menu" />
-    </button>
-  </div>
-  <div *ngIf="menuOpen" class="menu-items ">
-    <a routerLink="/product" (click)="toggleMenu()" class="header-main-page">Product</a>
-    <a routerLink="/topseller" (click)="toggleMenu()" class="header-main-page">Top Seller</a>
-    <a routerLink="/signup" (click)="toggleMenu()" class="header-main-page">Sign Up</a>
-    <a routerLink="/cart" (click)="toggleMenu()" class="cart-button">
-      <p class="cart-item-count">1</p>
-      <img class="header-logo cart-logo" src="shopping-cart.png" alt="cart" />
-    </a>
-  </div>
-</header>
+<div class="cart-register flex-between ">
+<a class="cart-button">
+  <p>1</p>
+  <img src="shopping-cart.png" alt="">
+</a>
+<a class="register-button">Register</a>
+</div>
+
+<button class="menu-button" (click)="toggleMenu()">
+  <img src="menu.png" alt="">
+</button>
+
+</div>
+<div *ngIf="isMenuOpen" class="menu-items">
+    <a class="home-button" (click)="toggleMenu()">Home</a>
+    <a class="product-button" (click)="toggleMenu()">Products</a>
+      <a class="cart-button" (click)="toggleMenu()">
+        <p>1</p>
+        <img src="shopping-cart.png" alt="" class="cart-icon">
+      </a >
+      <a class="register-button" (click)="toggleMenu()">Register</a>
+</div>

@@ -3,8 +3,8 @@
 // =============================================================================
 // Reusable mixins that use theme variables for consistent styling
 
-@import '_theme';
-@import '_components';
+@import 'theme';
+@import 'components';
 
 // =============================================================================
 // BUTTON MIXINS
@@ -427,6 +427,10 @@
   animation: pulse $duration infinite;
 }
 
+@mixin slide-down($duration: $transition-normal) {
+  animation: slideDown $duration ease-out;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -440,6 +444,16 @@
   from {
     opacity: 0;
     transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;

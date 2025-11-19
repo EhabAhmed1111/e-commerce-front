@@ -22,7 +22,6 @@ import { HeaderComponent } from './shared/components/header/header.component';
 @Component({
   selector: 'app-root',
   imports: [
-    HeaderComponent,
     RouterOutlet,
     RouterLink,
     CommonModule,
