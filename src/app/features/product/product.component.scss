@@ -1,0 +1,46 @@
+@import "../../../styles/components";
+@import "../../../styles/theme";
+@import "../../../styles/mixins";
+
+/*------ mobile first 0 to 640 -----*/
+.product-section {
+  margin-top: $spacing-md;
+
+  @include grid(1, 3vw);
+ 
+  .product-card {
+    @include card-base;
+    @include card-padding;
+    cursor: pointer;
+    width: 80vw;
+    margin: 0 auto;
+  }
+  a {
+    text-decoration: none;
+  }
+/*--------from 640 to 768-------*/
+  @include tablet-up {
+  @include grid(2, $spacing-sm);
+  .product-card {
+    width: 48vw;
+    margin: 0;
+  }
+}
+
+/*------ 768 to 1024----------*/
+@include desktop-up {
+@include grid(3, $spacing-sm);
+.product-card {
+  width: 32vw;
+}
+}
+
+/*------ 1024 to inf ----------*/
+@include large-desktop-up {
+  @include grid(4, $spacing-sm);
+  .product-card {
+    width: 24vw;
+  }
+}
+
+}
