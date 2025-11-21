@@ -2,11 +2,11 @@
 
 <div class="home-product">
 <a class="home-button">Home</a>
-<a class="product-button">Products</a>
+<a routerLink="/product" class="product-button">Products</a>
 </div>
 
 <div class="logo-title">
-<a class="title-text">
+<a class="title-text" routerLink="/">
 ElsoooQ
 </a>
 </div>
@@ -26,7 +26,7 @@ ElsoooQ
 </div>
 <div *ngIf="isMenuOpen" class="menu-items">
     <a class="home-button" (click)="toggleMenu()">Home</a>
-    <a class="product-button" (click)="toggleMenu()">Products</a>
+    <a class="product-button" (click)="toggleMenu()" routerLink="/product">Products</a>
       <a class="cart-button" (click)="toggleMenu()">
         <p>1</p>
         <img src="shopping-cart.png" alt="" class="cart-icon">

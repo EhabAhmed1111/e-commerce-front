@@ -4,7 +4,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, NgIf],
+  imports: [RouterLink, NgIf],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -16,5 +16,6 @@ isMenuOpen = false;
  */
 toggleMenu() {
   this.isMenuOpen = !this.isMenuOpen;
+  
 }
 }

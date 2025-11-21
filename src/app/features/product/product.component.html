@@ -1,0 +1,16 @@
+<app-header></app-header>
+
+<div class="product-section">
+
+  @for(product of products; track product.id){
+    <div class="product-card">
+    <a >
+      <img class="product-card-image" src=product.medias.url alt="none">
+      <h3 class="product-card-title">product.name</h3>
+        <h3 class="product-card-price">product.price</h3>
+        <h3 class="product-card-category">product.categoryName</h3>
+      </a>
+    </div>
+  }
+
+</div>

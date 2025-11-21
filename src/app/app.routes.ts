@@ -7,6 +7,9 @@ export const routes: Routes = [
     loadComponent: () => import('./features/home/home.component').then((c)=>c.HomeComponent)
 
   },{
+    path: "product",
+    loadComponent: () => import('./features/product/product.component').then((c)=>c.ProductComponent)
+  },{
     path: "**",
     redirectTo: ''
   }
