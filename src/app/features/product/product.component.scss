@@ -14,9 +14,23 @@
     cursor: pointer;
     width: 80vw;
     margin: 0 auto;
+    
   }
   a {
     text-decoration: none;
+  }
+  .product-card-image {
+    border-radius: $border-radius-xl;
+    width: 100%;  
+    height: 80%
+  }
+
+  .product-card-title {
+
+  }
+
+  .product-card-price {
+    color: $text-secondary
   }
 /*--------from 640 to 768-------*/
   @include tablet-up {
