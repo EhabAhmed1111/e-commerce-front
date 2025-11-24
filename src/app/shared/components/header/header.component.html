@@ -1,10 +1,10 @@
 <div class="flex items-center justify-between bg-white px-4 py-2 shadow-sm relative z-20">
 
   <div class="hidden lg:flex gap-6">
-    <a
-      class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary hover:bg-gray-50">Home</a>
-    <a routerLink="/product"
-      class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary hover:bg-gray-50">Products</a>
+    <a routerLinkActive="!text-primary" [routerLinkActiveOptions]="{exact: true}" routerLink="/"
+      class="flex items-center justify-center rounded-lg  no-underline cursor-pointer transition-all select-none px-6 text-base bg-white text-gray-600 hover:text-primary">Home</a>
+    <a routerLinkActive="!text-primary" routerLink="/product"
+      class="flex items-center justify-center rounded-lg  no-underline cursor-pointer transition-all select-none px-6 text-base bg-white text-gray-600 hover:text-primary">Products</a>
   </div>
 
   <div class="logo-title">
@@ -16,20 +16,21 @@
 
   <div class="hidden lg:flex items-center gap-6">
     <a
-      class="flex flex-col items-center relative inline-flex justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary hover:bg-gray-50">
+      class="flex flex-col items-center relative inline-flex justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base text-gray-600 bg-white border border-primary hover:bg-gray-50">
       <p
-        class="m-0 text-sm font-bold text-white bg-red-500 rounded-full px-1 min-w-[1.5rem] text-center transition-all absolute -top-2 -right-2">
+        class="flex w-5 h-5 justify-center items-center m-0 text-xs font-bold text-white bg-red-500 rounded-full text-center transition-all absolute bottom-0 left-4">
         1</p>
-      <fa-icon [icon]="faCartIcon" class="cart-icon"></fa-icon>
+      <fa-icon [icon]="faCartIcon" class="text-2xl hover:text-primary"></fa-icon>
     </a>
-    <a
-      class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary hover:bg-gray-50">Register</a>
+    <a routerLinkActive="!text-primary" routerLink="/register"
+      class="flex items-center justify-center rounded-lg  no-underline cursor-pointer transition-all select-none px-6 text-base bg-white text-gray-600 hover:text-primary">Register</a>
   </div>
 
   <button
     class="lg:hidden inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium cursor-pointer transition-all whitespace-nowrap select-none bg-secondary p-1"
     (click)="toggleMenu()">
-    <img src="menu.png" alt="" class="w-6 h-6">
+    <!-- todo change it to icon-->
+    <img src="menu.png" alt="" class="">
   </button>
 
 </div>
@@ -42,7 +43,7 @@
   <a class="flex flex-col relative bg-white inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base text-primary border border-primary w-full text-left hover:bg-gray-100"
     (click)="toggleMenu()">
     <p
-      class="m-0 text-sm font-bold text-white bg-red-500 rounded-full px-1 min-w-[1.5rem] text-center transition-all absolute -top-2 -right-2">
+      class="m-0 text-sm font-bold text-white bg-red-500 rounded-full px-1 min-w-[1.5rem] text-center transition-all absolute -top-2 -right-4">
       1</p>
     <fa-icon [icon]="faCartIcon" class="cart-icon"></fa-icon>
   </a>
