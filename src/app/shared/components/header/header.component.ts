@@ -6,7 +6,7 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, NgIf, FontAwesomeModule],
+  imports: [RouterLink, NgIf, FontAwesomeModule, RouterLinkActive],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
