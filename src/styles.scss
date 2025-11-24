@@ -1,181 +1,31 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* =============================================================================
-   THEME SYSTEM IMPORTS
+   PRIME ICONS
    ============================================================================= */
-   @import 'styles/theme';
-   @import 'styles/components';
-   @import 'styles/mixins';
-   
-   /* =============================================================================
-      PRIME ICONS
-      ============================================================================= */
-   @import 'primeicons/primeicons.css';
-   
-   /* =============================================================================
-      GLOBAL STYLES USING THEME SYSTEM
-      ============================================================================= */
-   
-   * { 
-     box-sizing: border-box;
-   }
-   
-   html {
-     height: 100%;
-     font-size: 16px;
-     -webkit-text-size-adjust: 100%;
-     -webkit-font-smoothing: antialiased;
-     -moz-osx-font-smoothing: grayscale;
-   }
-   
-   body {
-     margin: 0;
-     padding: 0;
-     height: 100%;
-     font-family: $font-family-primary;
-     font-size: $font-size-base;
-     font-weight: $font-weight-normal;
-     line-height: $line-height-normal;
-     color: $text-primary;
-     background-color: $background-primary;
-     overflow-x: hidden;
-   }
-   
-   /* =============================================================================
-      TYPOGRAPHY USING THEME
-      ============================================================================= */
-   
-   h1, h2, h3, h4, h5, h6 {
-     @include heading(1);
-     
-     & {
-       margin: 0 0 $spacing-md 0;  
-     }
-   }
-   
-   h1 { @include heading(1); }
-   h2 { @include heading(2); }
-   h3 { @include heading(3); }
-   h4 { @include heading(4); }
-   h5 { @include heading(5); }
-   h6 { @include heading(6); }
-   
-   p {
-     @include text(body);
-     margin: 0 0 $spacing-md 0;
-   }
-   
-   small {
-     @include text(small);
-   }
-   
-   /* =============================================================================
-      LINKS USING THEME
-      ============================================================================= */
-   
-   a {
-     color: $primary-color;
-     text-decoration: none;
-     transition: color $transition-fast;
-     
-     &:hover {
-       color: darken($primary-color, 10%);
-       text-decoration: underline;
-     }
-     
-     &:focus-visible {
-       outline: 2px solid $border-focus;
-       outline-offset: 2px;
-       border-radius: $border-radius-sm;
-     }
-   }
-   
-   /* =============================================================================
-      FORMS USING THEME
-      ============================================================================= */
-   
-   input, textarea, select {
-     @include input-base;
-     @include input-size(md);
-   }
-   
-   button {
-     @include button-base;
-     @include button-size(md);
-     @include button-variant(primary);
-   }
-   
-   /* =============================================================================
-      UTILITY CLASSES USING THEME
-      ============================================================================= */
-   
-   .container {
-     @include container;
-   }
-   
-   .flex-center {
-     @include flex-center;
-   }
-   
-   .flex-between {
-     @include flex-between;
-   }
-   
-   .flex-column {
-     @include flex-column;
-   }
-   
-   .text-center {
-     text-align: center;
-   }
-   
-   .text-left {
-     text-align: left;
-   }
-   
-   .text-right {
-     text-align: right;
-   }
-   
-   .visually-hidden {
-     @include visually-hidden;
-   }
-   
-   .truncate {
-     @include truncate;
-   }
-   
-   /* =============================================================================
-      SPACING UTILITIES USING THEME
-      ============================================================================= */
-   
-   .m-0 { margin: 0; }
-   .m-1 { margin: $spacing-xs; }
-   .m-2 { margin: $spacing-sm; }
-   .m-3 { margin: $spacing-md; }
-   .m-4 { margin: $spacing-lg; }
-   .m-5 { margin: $spacing-xl; }
-   
-   .p-0 { padding: 0; }
-   .p-1 { padding: $spacing-xs; }
-   .p-2 { padding: $spacing-sm; }
-   .p-3 { padding: $spacing-md; }
-   .p-4 { padding: $spacing-lg; }
-   .p-5 { padding: $spacing-xl; }
-   
-   /* =============================================================================
-      COLOR UTILITIES USING THEME
-      ============================================================================= */
-   
-   .text-primary { color: $text-primary; }
-   .text-secondary { color: $text-secondary; }
-   .text-muted { color: $text-tertiary; }
-   .text-inverse { color: $text-inverse; }
-   
-   .bg-primary { background-color: $primary-color; }
-   .bg-secondary { background-color: $secondary-color; }
-   .bg-accent { background-color: $accent-color; }
-   .bg-success { background-color: $success-color; }
-   .bg-warning { background-color: $warning-color; }
-   .bg-error { background-color: $error-color; }
-   
+@import 'primeicons/primeicons.css';
+
+/* =============================================================================
+   GLOBAL RESETS
+   ============================================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}

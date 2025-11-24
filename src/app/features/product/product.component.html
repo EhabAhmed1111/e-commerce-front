@@ -1,39 +1,51 @@
 <app-header></app-header>
 
-<div class="full-prouct-page">
-  <div class="serch-section">
-    <input type="text" />
+<div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-16">
+  <div class="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
+    <div class="w-full sm:w-2/5">
+      <input type="text" placeholder="Search products..."
+        class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none placeholder:text-slate-400" />
+    </div>
+    <!-- this should be template form -->
+    <form class="flex gap-2 w-full overflow-x-auto pb-1 sm:w-auto sm:overflow-visible sm:pb-0">
+      <!-- for category -->
+      <select name="category"
+        class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
+        <option value="" disabled selected>Category</option>
+        <!-- @for() { } -->
+      </select>
+      <!-- for price -->
+      <select name="price"
+        class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
+        <option value="" disabled selected>Price</option>
+        <!-- @for() { } -->
+      </select>
+      <!-- for reviews -->
+      <select name="reviews"
+        class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
+        <option value="" disabled selected>Reviews</option>
+        <!-- @for() { } -->
+      </select>
+    </form>
   </div>
 
-  <div class="category-section">
-    <!-- for category -->
-    <select name="" id="">
-      <!-- @for() {
-        
-      } -->
-    </select>
-    <!-- for price -->
-    <select name="" id="">
-      <!-- @for() {
-        
-      } -->
-    </select>
-    <!-- for reviews -->
-    <select name="" id="">
-      <!-- @for() {
-        
-      } -->
-    </select>
-  </div>
-  <div class="product-section">
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
     @for(product of products; track product.id){
-    <div class="product-card">
-      <a>
-        <img class="product-card-image" src="{{product.thumbnail}}" alt="none" />
-        
-        <h5 class="product-card-title">{{ product.productName }}</h5>
-        <span class="product-card-price">${{ product.price }}</span>
-        <!-- <h3 class="product-card-category">{{product.categoryName}}</h3> -->
+    <div
+      class="bg-white border border-gray-200 rounded-xl shadow-md overflow-hidden transition-all h-full flex flex-col hover:shadow-lg hover:-translate-y-0.5">
+      <a class="no-underline text-inherit flex flex-col h-full">
+        <div class="relative pt-[75%] overflow-hidden border-b border-gray-200">
+          <img
+            class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-250 hover:scale-105"
+            src="{{product.thumbnail}}" alt="{{product.productName}}" />
+        </div>
+        <div class="p-6 flex-grow flex flex-col gap-1">
+          <h5
+            class="font-sans font-semibold leading-tight text-slate-800 m-0 text-base mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
+            {{ product.productName }}</h5>
+          <span class="font-sans leading-normal m-0 text-base text-slate-800 font-bold text-primary">${{ product.price
+            }}</span>
+        </div>
       </a>
     </div>
     }
