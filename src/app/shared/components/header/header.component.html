@@ -1,35 +1,51 @@
-<div class="header-section flex-between ">
+<div class="flex items-center justify-between bg-white px-4 py-2 shadow-sm relative z-20">
 
-<div class="home-product">
-<a class="home-button">Home</a>
-<a routerLink="/product" class="product-button">Products</a>
+  <div class="hidden lg:flex gap-6">
+    <a
+      class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary hover:bg-gray-50">Home</a>
+    <a routerLink="/product"
+      class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary hover:bg-gray-50">Products</a>
+  </div>
+
+  <div class="logo-title">
+    <a class="text-2xl font-bold text-primary cursor-pointer text-center whitespace-nowrap transition-colors hover:no-underline hover:text-indigo-700"
+      routerLink="/">
+      ElsoooQ.com
+    </a>
+  </div>
+
+  <div class="hidden lg:flex items-center gap-6">
+    <a
+      class="flex flex-col items-center relative inline-flex justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary hover:bg-gray-50">
+      <p
+        class="m-0 text-sm font-bold text-white bg-red-500 rounded-full px-1 min-w-[1.5rem] text-center transition-all absolute -top-2 -right-2">
+        1</p>
+      <fa-icon [icon]="faCartIcon" class="cart-icon"></fa-icon>
+    </a>
+    <a
+      class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary hover:bg-gray-50">Register</a>
+  </div>
+
+  <button
+    class="lg:hidden inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium cursor-pointer transition-all whitespace-nowrap select-none bg-secondary p-1"
+    (click)="toggleMenu()">
+    <img src="menu.png" alt="" class="w-6 h-6">
+  </button>
+
 </div>
-
-<div class="logo-title">
-<a class="title-text" routerLink="/">
-ElsoooQ
-</a>
-</div>
-
-<div class="cart-register flex-between ">
-<a class="cart-button">
-  <p>1</p>
-  <img src="shopping-cart.png" alt="">
-</a>
-<a class="register-button">Register</a>
-</div>
-
-<button class="menu-button" (click)="toggleMenu()">
-  <img src="menu.png" alt="">
-</button>
-
-</div>
-<div *ngIf="isMenuOpen" class="menu-items">
-    <a class="home-button" (click)="toggleMenu()">Home</a>
-    <a class="product-button" (click)="toggleMenu()" routerLink="/product">Products</a>
-      <a class="cart-button" (click)="toggleMenu()">
-        <p>1</p>
-        <img src="shopping-cart.png" alt="" class="cart-icon">
-      </a >
-      <a class="register-button" (click)="toggleMenu()">Register</a>
+<div *ngIf="isMenuOpen"
+  class="lg:hidden flex flex-col gap-2 p-4 rounded-2xl border border-gray-200 shadow-md bg-gray-50 absolute top-[7%] right-0 w-52 animate-slideDown z-10">
+  <a class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary w-full text-left hover:bg-gray-100"
+    (click)="toggleMenu()">Home</a>
+  <a class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary w-full text-left hover:bg-gray-100"
+    (click)="toggleMenu()" routerLink="/product">Products</a>
+  <a class="flex flex-col relative bg-white inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base text-primary border border-primary w-full text-left hover:bg-gray-100"
+    (click)="toggleMenu()">
+    <p
+      class="m-0 text-sm font-bold text-white bg-red-500 rounded-full px-1 min-w-[1.5rem] text-center transition-all absolute -top-2 -right-2">
+      1</p>
+    <fa-icon [icon]="faCartIcon" class="cart-icon"></fa-icon>
+  </a>
+  <a class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary w-full text-left hover:bg-gray-100"
+    (click)="toggleMenu()">Register</a>
 </div>
