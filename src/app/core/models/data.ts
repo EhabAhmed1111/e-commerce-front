@@ -45,3 +45,16 @@ export interface Category {
   createdAt: Date,
   updatedAt: Date
 }
+
+export interface SignupResponse {
+  message?: string,
+  data: string
+}
+
+export interface SignupRequest {
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  role: string
+}

@@ -1,0 +1,115 @@
+<div class="w-full min-h-screen flex items-center justify-center bg-[#1f283b]">
+  <div
+    class="w-full max-w-3xl h-auto py-10 px-8 md:px-12 flex flex-col gap-6 bg-[#0e162a] rounded-xl border border-gray-700 shadow-xl"
+  >
+    <h2 class="font-extrabold text-3xl text-white">
+      Create an account
+      <span class="block text-gray-400 font-medium text-xl mt-2">
+        Join our community
+      </span>
+    </h2>
+
+    <form
+      class="flex flex-col gap-4 w-full"
+      [formGroup]="signupForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <!-- First & Last Name -->
+      <div class="flex flex-col md:flex-row gap-4">
+        <div class="flex-1 flex flex-col">
+          <label class="text-white font-semibold text-sm mb-1" for="firstName">
+            First Name
+          </label>
+          <input
+            class="rounded-lg bg-transparent border border-gray-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white"
+            id="firstName"
+            type="text"
+            formControlName="firstName"
+          />
+        </div>
+        <div class="flex-1 flex flex-col">
+          <label class="text-white font-semibold text-sm mb-1" for="lastName">
+            Last Name
+          </label>
+          <input
+            class="rounded-lg bg-transparent border border-gray-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white"
+            id="lastName"
+            type="text"
+            formControlName="lastName"
+          />
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="flex flex-col">
+        <label class="text-white font-semibold text-sm mb-1" for="email">Email</label>
+        <input
+          class="rounded-lg bg-transparent border border-gray-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white"
+          id="email"
+          type="email"
+          formControlName="email"
+        />
+      </div>
+
+      <!-- Password -->
+      <div class="flex flex-col">
+        <label class="text-white font-semibold text-sm mb-1" for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="rounded-lg bg-transparent border border-gray-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white "
+          formControlName="password"
+        />
+      </div>
+
+      <!-- Confirm Password -->
+      <!-- <div class="flex flex-col">
+        <label class="text-white font-semibold text-sm mb-1" for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          placeholder="••••••••"
+          class="rounded-lg bg-transparent border border-gray-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white placeholder-gray-400"
+          formControlName="confirmPassword"
+        />
+      </div> -->
+
+      <!-- Role -->
+      <div class="flex flex-col">
+        <label class="text-white font-semibold text-sm mb-1" for="role">You Are?</label>
+        <select
+          formControlName="role"
+          id="role"
+          class="rounded-lg bg-transparent border border-gray-700 p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-white"
+        >
+          <option class="text-black" value="CUSTOMER">Customer</option>
+          <option class="text-black" value="VENDOR">Vendor</option>
+        </select>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="bg-[#5fa2fa] hover:bg-blue-600 transition-colors duration-200 rounded-lg p-3 font-semibold text-white mt-2"
+      >
+        Sign Up
+      </button>
+    </form>
+    <div class="flex items-center my-6">
+      <div class="flex-1 h-px bg-gray-500"></div>
+      <span class="mx-4 text-gray-400 font-medium">or</span>
+      <div class="flex-1 h-px bg-gray-500"></div>
+    </div>
+    <div class="text-center mt-4">
+      <span class="text-gray-400 font-medium">
+        You already have an account? 
+        <a 
+          routerLink="/auth/login" 
+          class="text-[#5fa2fa] font-semibold hover:text-blue-400 transition-colors duration-200 cursor-pointer"
+        >
+          Sign In
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
