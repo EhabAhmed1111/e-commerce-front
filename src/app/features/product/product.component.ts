@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { ProductService } from '../../core/services/product/product.service';
-import { GlobalResponse, Products, ProductsForShow } from '../../core/models/data';
+import { ProductsResponse, Products, ProductsForShow, CategoriesResponse, Category } from '../../core/models/data';
+import { CategoryService } from '../../core/services/category/category.service';
 
 @Component({
   selector: 'app-product',
@@ -13,14 +14,15 @@ import { GlobalResponse, Products, ProductsForShow } from '../../core/models/dat
 export class ProductComponent {
   /*---- this will not be modified -----*/
   products: ProductsForShow[] = [];
-  
+  categories: Category[] = [];
 
-  constructor(private productService: ProductService) {}
+
+  constructor(private productService: ProductService, private categoryService: CategoryService) { }
 
   ngOnInit() {
     this.productService
       .fetchProducts()
-      .subscribe((products: GlobalResponse) => {
+      .subscribe((products: ProductsResponse) => {
         /*------ this return list of products and mapping it to new Product ------*/
         this.products = products.data.map((product: Products): ProductsForShow => {
           /*------ here we got thumbnail if it null we use default one--------*/
@@ -32,6 +34,12 @@ export class ProductComponent {
           };
         });
       });
+  }
+
+  getAllCategories() {
+    this.categoryService.getAllCategories().subscribe((category: CategoriesResponse): void => {
+      this.categories = category.data;
+    })
   }
 
 }
