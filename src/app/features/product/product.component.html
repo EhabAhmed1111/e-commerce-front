@@ -9,30 +9,35 @@
     <!-- this should be template form -->
     <form class="flex gap-2 w-full overflow-x-auto pb-1 sm:w-auto sm:overflow-visible sm:pb-0">
       <!-- for category -->
-      <select name="category"
+      <select name="category" (click)="getAllCategories()"
         class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
+        @for(category of categories; track category.id){
+        <!-- after we select element we send api req with this element -->
+        <option value="{{category.id}}" selected>{{category.name}}</option>
+        }@empty{
         <option value="" disabled selected>Category</option>
-        <!-- @for() { } -->
+        }
       </select>
+
       <!-- for price -->
       <select name="price"
         class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
         <option value="" disabled selected>Price</option>
-        <!-- @for() { } -->
       </select>
+
       <!-- for reviews -->
       <select name="reviews"
         class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
         <option value="" disabled selected>Reviews</option>
-        <!-- @for() { } -->
       </select>
+
     </form>
   </div>
 
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
     @for(product of products; track product.id){
     <div
-      class="bg-white border border-gray-200 rounded-xl shadow-md overflow-hidden transition-all h-full flex flex-col hover:shadow-lg hover:-translate-y-0.5">
+      class="bg-white cursor-pointer border border-gray-200 rounded-xl shadow-md overflow-hidden transition-all h-full flex flex-col hover:shadow-lg hover:-translate-y-0.5">
       <a class="no-underline text-inherit flex flex-col h-full">
         <div class="relative pt-[75%] overflow-hidden border-b border-gray-200">
           <img

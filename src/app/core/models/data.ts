@@ -1,6 +1,10 @@
-export interface GlobalResponse {
-message: string,
-data: Products[]
+export interface ProductsResponse {
+  message: string,
+  data: Products[]
+}
+export interface CategoriesResponse {
+  message: string,
+  data: Category[]
 }
 
 export interface Products {
@@ -27,10 +31,17 @@ export interface ProductsForShow {
 }
 
 export interface Media {
-fileName: string,
-url: string,
-fileType: string,
-cloudinaryPublicId: string,
-uploadedAt: Date,
-coverImage: boolean
+  fileName: string,
+  url: string,
+  fileType: string,
+  cloudinaryPublicId: string,
+  uploadedAt: Date,
+  coverImage: boolean
+}
+
+export interface Category {
+  id: string,
+  name: string,
+  createdAt: Date,
+  updatedAt: Date
 }

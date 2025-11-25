@@ -10,10 +10,10 @@ export const routes: Routes = [
     path: "product",
     loadComponent: () => import('./features/product/product.component').then((c) => c.ProductComponent)
   },
-  // {
-  //   path: "register",
-  //   loadComponent: () => import('./features/product/product.component').then((c) => c.ProductComponent)
-  // },
+  {
+    path: "auth",
+    loadChildren: () => import('./features/auth/auth.module').then((c) => c.AuthModule)
+  },
   {
     path: "**",
     redirectTo: ''
