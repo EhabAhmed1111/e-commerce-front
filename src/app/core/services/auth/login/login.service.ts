@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SignupRequest, SignupResponse } from '../../../models/data';
+import { LoginRequest, LoginResponse, SignupRequest, SignupResponse } from '../../../models/data';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,6 +8,10 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
+  login(request: LoginRequest): Observable<LoginResponse> {
+    const url = "http://localhost:8080/api/v1/auth/";
+    return this.http.post<LoginResponse>(`${url}login`, request);
+  }
 }
