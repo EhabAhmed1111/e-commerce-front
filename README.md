@@ -1,271 +1,216 @@
-# EcommercePlatformFe
+# E-Commerce Platform
 
-# 📂 Project Structure
+A modern Angular e-commerce application built with Angular 19, featuring a clean architecture and modern UI with Tailwind CSS.
+
+## 🚀 Tech Stack
+
+- **Angular**: v19.2.0
+- **TypeScript**: v5.7.2
+- **Tailwind CSS**: v3.4.18
+- **PostCSS**: v8.4.47
+- **RxJS**: v7.8.0
+- **Font Awesome**: v7.1.0
+- **PrimeIcons**: v7.0.0
+
+## 📂 Current Project Structure
 
 ```
 src/
  ├── app/
- │    ├── core/                      # Global singletons (auth, interceptors, guards, layouts)
- │    │    ├── services/             # Core services (auth, API, storage, notifications)
- │    │    ├── guards/               # Route guards (auth, roles, permissions)
- │    │    ├── interceptors/         # HTTP interceptors (auth tokens, error handling)
- │    │    ├── layouts/              # App-wide layouts (main, vendor, admin shells)
- │    │    └── core.module.ts        # Core module (imported once in root)
+ │    ├── core/                      # Core application services and utilities
+ │    │    ├── guards/               # Route guards
+ │    │    ├── interceptors/         # HTTP interceptors
+ │    │    ├── models/               # Core data models
+ │    │    ├── services/             # Core services
+ │    │    └── utils/                # Utility functions
  │    │
- │    ├── shared/                    # Reusable UI building blocks
- │    │    ├── components/           # Shared components (buttons, modals, tables)
- │    │    ├── directives/           # Custom directives (infinite scroll, focus)
- │    │    ├── pipes/                # Reusable pipes (currency, date formatting)
- │    │    ├── models/               # TypeScript interfaces & models
- │    │    └── utils/                # Helper functions (formatters, validators)
+ │    ├── shared/                    # Shared components and utilities
+ │    │    ├── components/           # Reusable components
+ │    │    │    ├── header/          # Application header
+ │    │    │    └── footer/          # Application footer
+ │    │    └── model/                # Shared models
  │    │
- │    ├── features/                  # Business-specific modules (lazy-loaded)
- │    │    ├── auth/                 # Authentication (login, register, forgot/reset password)
- │    │    ├── customer/             # Customer-facing storefront
- │    │    │    ├── home/            # Homepage (landing, banners, promotions)
- │    │    │    ├── product/         # Product listing, details, reviews
- │    │    │    ├── cart/            # Shopping cart functionality
- │    │    │    ├── checkout/        # Checkout flow & payment
- │    │    │    └── orders/          # Customer order history & tracking
- │    │    ├── vendor/               # Vendor dashboard
- │    │    │    ├── dashboard/       # Vendor overview & KPIs
- │    │    │    ├── products/        # Vendor product management
- │    │    │    ├── orders/          # Vendor order management
- │    │    │    └── analytics/       # Vendor sales analytics & reports
- │    │    ├── admin/                # Admin panel
- │    │    │    ├── dashboard/       # Admin overview & KPIs
- │    │    │    ├── vendors/         # Vendor approvals & management
- │    │    │    ├── categories/      # Category & product moderation
- │    │    │    └── reports/         # Reports & platform analytics
- │    │    └── shared-modules/       # Domain-specific reusable feature modules (charts, forms)
+ │    ├── features/                  # Feature modules
+ │    │    ├── auth/                 # Authentication module
+ │    │    ├── home/                 # Home page
+ │    │    └── product/              # Product features
  │    │
- │    ├── state/                     # Global application state (Signals or NgRx)
- │    │    ├── auth/                 # Authentication state
- │    │    ├── cart/                 # Shopping cart state
- │    │    ├── vendor/               # Vendor-related global state
- │    │    └── app.store.ts          # Root store configuration
- │    │
- │    ├── app.config.ts              # Bootstrap configs (zoneless, providers, routing)
- │    └── app.component.*            # Root component & shell
+ │    ├── app.component.*            # Root component
+ │    ├── app.config.ts              # Application configuration
+ │    ├── app.routes.ts              # Application routing
+ │    └── route-animations.ts        # Route transition animations
  │
- ├── assets/                         # Static assets (images, icons, translations, mock data)
- ├── environments/                   # Environment configs (dev, staging, prod)
- ├── styles/                         # Global SCSS (themes, mixins, variables)
- │    ├── _variables.scss            # Theme variables (colors, spacing, fonts)
- │    ├── _mixins.scss               # SCSS mixins (responsive helpers, utilities)
- │    ├── _layout.scss               # Global layout styles
- │    └── main.scss                  # Root stylesheet (imports all partials)
+ ├── styles.scss                     # Global styles with Tailwind directives
  └── index.html                      # Application entry point
-
 ```
 
----
+## 🎨 Styling
 
-# 🔑 Design Principles
+This project uses **Tailwind CSS v3** for styling with a custom theme configuration:
 
-### 1. Zoneless + Signals-first
+### Custom Theme Colors
+- **Primary**: `#6366f1` (Indigo)
+- **Secondary**: `#d946ef` (Fuchsia)
+- **Accent**: `#22c55e` (Green)
 
-* No `zone.js`, rely on Angular **signals** for reactivity.
-* Feature states (cart, auth, vendor dashboard) modeled with signals.
+### Custom Animations
+- **slideDown**: Smooth slide-down animation for page transitions
 
-### 2. Lazy-loaded Features
+### Configuration Files
+- `tailwind.config.js` - Tailwind theme configuration
+- `postcss.config.js` - PostCSS configuration
+- `src/styles.scss` - Global styles with Tailwind directives
 
-* **Customer**, **vendor**, and **admin** modules load only when needed.
-* Improves performance and speeds up initial load.
+## 🛠️ Development
 
-### 3. Domain-driven Structure
+### Prerequisites
+- Node.js (LTS version recommended)
+- npm or yarn
 
-* Each business domain is self-contained.
-* Each feature has its own routing, components, services, and state.
-
-### 4. Separation of Concerns
-
-* `core` → global singletons (auth service, interceptors).
-* `shared` → reusable UI components, pipes, and directives.
-* `features` → business logic and views.
-
-### 5. SCSS Theming
-
-* Centralize variables in `styles/_variables.scss`.
-* Allows multi-theme support for **customer storefront**, **vendor dashboards**, and **admin panel**.
-
----
-
-Great ✅ Consistent **naming conventions** are critical for a large Angular app like a multi-vendor e-commerce platform. Here’s a recommended guide that aligns with Angular style guide best practices and scales well with a **zoneless, signals-first architecture**.
-
----
-
-# 📝 Angular Naming Conventions
-
-## 📦 Folders & Modules
-
-* **Feature modules**: `feature-name.module.ts`
-
-  * Example: `auth.module.ts`, `customer.module.ts`
-* **Lazy-loaded modules**: match folder name
-
-  * Example: `vendor/ → vendor.module.ts`
-* **Core & shared modules**: `core.module.ts`, `shared.module.ts`
-
----
-
-## 🧩 Components
-
-* **Naming format**: `feature-name.component.ts`
-* **Selector**: `app-feature-name`
-* **Folder per component** (for template + styles)
-
-**Examples:**
-
-* `product-card.component.ts` → selector: `<app-product-card>`
-* `vendor-dashboard.component.ts` → selector: `<app-vendor-dashboard>`
-
----
-
-## ⚙️ Services
-
-* **Naming format**: `feature-name.service.ts`
-* Should be suffixed with `Service`.
-* Placed inside `services/` folder of feature or `core/services` if global.
-
-**Examples:**
-
-* `auth.service.ts`
-* `cart.service.ts`
-* `vendor-analytics.service.ts`
-
----
-
-## 🛡️ Guards
-
-* **Naming format**: `feature.guard.ts`
-* Should be suffixed with `Guard`.
-
-**Examples:**
-
-* `auth.guard.ts`
-* `admin.guard.ts`
-
----
-
-## 🛰️ Interceptors
-
-* **Naming format**: `feature.interceptor.ts`
-* Should be suffixed with `Interceptor`.
-
-**Examples:**
-
-* `auth.interceptor.ts`
-* `error-handler.interceptor.ts`
-
----
-
-## 🔄 State Management (Signals / NgRx)
-
-* **Signal stores**: `feature.store.ts`
-* **NgRx files (if used)**:
-
-  * `feature.actions.ts`
-  * `feature.reducer.ts`
-  * `feature.effects.ts`
-  * `feature.selectors.ts`
-
-**Examples:**
-
-* `cart.store.ts`
-* `auth.store.ts`
-
----
-
-## 🏗️ Models & Interfaces
-
-* **Naming format**: `feature.model.ts`
-* Use PascalCase for interface names.
-
-**Examples:**
-
-* `product.model.ts` → `export interface Product { ... }`
-* `vendor.model.ts` → `export interface Vendor { ... }`
-
----
-
-## 🎨 Styles
-
-* **Global styles**: SCSS partials prefixed with `_`
-* **Feature styles**: keep next to component
-
-**Examples:**
-
-* `_variables.scss`, `_mixins.scss`
-* `product-card.component.scss`
-
----
-
-## 🌍 Routing
-
-* **Naming format**: `feature-routing.module.ts`
-
-**Examples:**
-
-* `auth-routing.module.ts`
-* `customer-routing.module.ts`
-
----
-
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
-
-## Development server
-
-To start a local development server, run:
+### Installation
 
 ```bash
+# Install dependencies
+npm install
+```
+
+### Development Server
+
+To start a local development server:
+
+```bash
+npm start
+# or
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/`. The application will automatically reload when you modify source files.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Available Scripts
 
 ```bash
-ng generate component component-name
+npm start          # Start development server
+npm run build      # Build for production
+npm run watch      # Build in watch mode
+npm test           # Run unit tests
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🏗️ Code Scaffolding
+
+Generate new components, services, and more using Angular CLI:
 
 ```bash
+# Generate a new component
+ng generate component component-name
+
+# Generate a new service
+ng generate service service-name
+
+# Generate a new guard
+ng generate guard guard-name
+
+# View all available schematics
 ng generate --help
 ```
 
-## Building
+## 📦 Building
 
-To build the project run:
+Build the project for production:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Build artifacts will be stored in the `dist/` directory. The production build is optimized for performance.
 
-## Running unit tests
+## 🧪 Testing
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Execute unit tests via [Karma](https://karma-runner.github.io):
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+## 📝 Naming Conventions
 
-For end-to-end (e2e) testing, run:
+### Components
+- **Format**: `feature-name.component.ts`
+- **Selector**: `app-feature-name`
+- **Example**: `product-card.component.ts` → `<app-product-card>`
 
-```bash
-ng e2e
-```
+### Services
+- **Format**: `feature-name.service.ts`
+- **Example**: `auth.service.ts`, `cart.service.ts`
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Guards
+- **Format**: `feature.guard.ts`
+- **Example**: `auth.guard.ts`
 
-## Additional Resources
+### Models
+- **Format**: `feature.model.ts`
+- **Example**: `product.model.ts`
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Styles
+- **Component styles**: `component-name.component.scss`
+- **Global styles**: `styles.scss`
+
+## 🎯 Design Principles
+
+### 1. Modular Architecture
+- Feature-based organization
+- Lazy-loaded routes for better performance
+- Separation of concerns (core, shared, features)
+
+### 2. Modern Angular
+- Standalone components
+- Signals for reactivity
+- Route animations for smooth transitions
+
+### 3. Responsive Design
+- Mobile-first approach with Tailwind CSS
+- Responsive utilities and breakpoints
+- Custom animations and transitions
+
+### 4. Code Quality
+- TypeScript strict mode
+- SCSS for component styling
+- Consistent naming conventions
+
+## 🔧 Configuration Files
+
+- `angular.json` - Angular workspace configuration
+- `tsconfig.json` - TypeScript configuration
+- `tailwind.config.js` - Tailwind CSS theme and plugins
+- `postcss.config.js` - PostCSS plugins configuration
+- `package.json` - Project dependencies and scripts
+
+## 📚 Additional Resources
+
+- [Angular Documentation](https://angular.dev)
+- [Angular CLI Reference](https://angular.dev/tools/cli)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs)
+
+## 🐛 Troubleshooting
+
+### Styling Issues
+If you encounter styling issues after updating dependencies:
+
+1. Ensure Tailwind CSS v3 is installed (not v4)
+2. Verify `postcss.config.js` uses the correct plugin syntax
+3. Remove any conflicting `.postcssrc.json` file
+4. Restart the development server
+
+### Build Errors
+If you encounter build errors:
+
+1. Clear the Angular cache: `rm -rf .angular`
+2. Remove node_modules: `rm -rf node_modules`
+3. Reinstall dependencies: `npm install`
+4. Restart the dev server: `npm start`
+
+---
+
+**Project Version**: 0.0.0  
+**Angular CLI**: v19.2.19  
+**Generated with**: Angular CLI
