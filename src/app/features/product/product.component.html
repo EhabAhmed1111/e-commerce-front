@@ -2,39 +2,44 @@
 
 <div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-16">
   <div class="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
-    <div class="w-full sm:w-2/5">
-      <input type="text" placeholder="Search products..."
-        class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none placeholder:text-slate-400" />
-    </div>
+
     <!-- this should be template form -->
-    <form class="flex gap-2 w-full overflow-x-auto pb-1 sm:w-auto sm:overflow-visible sm:pb-0">
-      <!-- for category -->
-      <select name="category" (click)="getAllCategories()"
-        class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
-        @for(category of categories; track category.id){
-        <!-- after we select element we send api req with this element -->
-        <option value="{{category.id}}" selected>{{category.name}}</option>
-        }@empty{
-        <option value="" disabled selected>Category</option>
-        }
-      </select>
+    <form class="flex flex-col gap-2 w-full overflow-x-auto pb-1 sm:w-auto sm:overflow-visible sm:pb-0 sm:flex-row">
+      <div class="w-full sm:w-2/5">
+        <!-- this search input could be better with ngrx -->
+        <input type="text" placeholder="Search products..." (input)="onSearchChange($event)" [(ngModel)]="searchText"
+          class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none placeholder:text-slate-400" />
+      </div>
+      <div class="flex gap-2">
+        <!-- for category -->
+        <select name="category" [(ngModel)]="category" (change)="onSelectCategoryChange($event)"
+          (click)="getAllCategories()"
+          class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
+          <option value="" (select)="onSelectCategoryChange($event)" selected>All</option>
+          @for(category of categories; track category.id){
+          <!-- after we select element we send api req with this element -->
+          <option value="{{category.name}}">{{category.name}}</option>
+          }
+        </select>
 
-      <!-- for price -->
-      <select name="price"
-        class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
-        <option value="" disabled selected>Price</option>
-      </select>
+        <!-- for price -->
+        <select name="price"
+          class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
+          <option value="" disabled selected>Price</option>
+        </select>
 
-      <!-- for reviews -->
-      <select name="reviews"
-        class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
-        <option value="" disabled selected>Reviews</option>
-      </select>
+        <!-- for reviews -->
+        <select name="reviews"
+          class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
+          <option value="" disabled selected>Reviews</option>
+        </select>
 
+      </div>
     </form>
   </div>
 
   <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+    @if(filteredProducts.length === 0 ) {
     @for(product of products; track product.id){
     <div
       class="bg-white cursor-pointer border border-gray-200 rounded-xl shadow-md overflow-hidden transition-all h-full flex flex-col hover:shadow-lg hover:-translate-y-0.5">
@@ -54,5 +59,28 @@
       </a>
     </div>
     }
+    }@else {
+    @for(product of filteredProducts; track product.id){
+    <div
+      class="bg-white cursor-pointer border border-gray-200 rounded-xl shadow-md overflow-hidden transition-all h-full flex flex-col hover:shadow-lg hover:-translate-y-0.5">
+      <a class="no-underline text-inherit flex flex-col h-full">
+        <div class="relative pt-[75%] overflow-hidden border-b border-gray-200">
+          <img
+            class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-250 hover:scale-105"
+            src="{{product.thumbnail}}" alt="{{product.productName}}" />
+        </div>
+        <div class="p-6 flex-grow flex flex-col gap-1">
+          <h5
+            class="font-sans font-semibold leading-tight text-slate-800 m-0 text-base mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
+            {{ product.productName }}</h5>
+          <span class="font-sans leading-normal m-0 text-base text-slate-800 font-bold text-primary">${{ product.price
+            }}</span>
+        </div>
+      </a>
+    </div>
+    }
+
+    }
+
   </div>
 </div>
