@@ -2,11 +2,17 @@ export interface ProductsResponse {
   message: string,
   data: Products[]
 }
+
+export interface SingleProductResponse {
+  message: string,
+  data: Products
+}
 export interface CategoriesResponse {
   message: string,
   data: Category[]
 }
 
+// here we need to update this interface
 export interface Products {
   id: string,
   productName: string,
@@ -16,6 +22,7 @@ export interface Products {
   description: string,
   categoryName: string,
   medias: Media[]
+  vendor: User
 }
 
 export interface ProductsForShow {
@@ -67,4 +74,10 @@ export interface LoginResponse {
 export interface LoginRequest {
   email: string,
   password: string,
+}
+
+export interface User {
+  id: number,
+  name: string,
+  email: string,
 }

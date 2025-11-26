@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { HeaderComponent } from './shared/components/header/header.component';
 
 export const routes: Routes = [
   {
@@ -13,6 +12,10 @@ export const routes: Routes = [
   {
     path: "auth",
     loadChildren: () => import('./features/auth/auth.module').then((c) => c.AuthModule)
+  },
+  {
+    path: "product/:id",
+    loadComponent: () => import('./features/product-details/product-details.component').then((c) => c.ProductDetailsComponent)
   },
   {
     path: "**",
