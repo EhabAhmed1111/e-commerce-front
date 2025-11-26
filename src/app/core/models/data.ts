@@ -58,3 +58,13 @@ export interface SignupRequest {
   password: string,
   role: string
 }
+
+export interface LoginResponse {
+  message?: string,
+  data: string
+}
+
+export interface LoginRequest {
+  email: string,
+  password: string,
+}
