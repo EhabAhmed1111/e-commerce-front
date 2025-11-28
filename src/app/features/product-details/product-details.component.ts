@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../core/services/product/product.service';
 import { Products, SingleProductResponse } from '../../core/models/data';
@@ -7,10 +7,13 @@ import { Products, SingleProductResponse } from '../../core/models/data';
   selector: 'app-product-details',
   imports: [],
   templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.scss'
+  styleUrl: './product-details.component.scss',
+  /* for using custom element tags */
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductDetailsComponent {
   product: Products = {} as Products;
+
 
   constructor(private router: ActivatedRoute, private productService: ProductService) { }
   // here we will make api req and we will remove the var we make it direct

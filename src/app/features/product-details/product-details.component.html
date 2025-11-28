@@ -1,1 +1,33 @@
-<p>{{product.productName}}</p>
+<!-- swiper -->
+<div class="flex w-full justify-center flex-col sm:flex-row gap-4">
+  <swiper-container class="w-[700px] h-[550px] m-0">
+    @for(media of product.medias; track media.cloudinaryPublicId) {
+    <swiper-slide>
+      <img src=" {{media.url}}" alt="{{media.cloudinaryPublicId}}">
+    </swiper-slide>
+    }@empty {
+    <swiper-slide>
+      <img
+        src="https://res.cloudinary.com/dpc0ohu0g/image/upload/v1763827794/ecommerce/products/images/1c9d41ad-1beb-4b11-b089-02c4c44b8a17.png"
+        alt="{{product.productName}}">
+    </swiper-slide>
+    <swiper-slide>
+      <img
+        src="https://res.cloudinary.com/dpc0ohu0g/image/upload/v1763827794/ecommerce/products/images/1c9d41ad-1beb-4b11-b089-02c4c44b8a17.png"
+        alt="{{product.productName}}">
+    </swiper-slide>
+    <swiper-slide>
+      <img
+        src="https://res.cloudinary.com/dpc0ohu0g/image/upload/v1763827794/ecommerce/products/images/1c9d41ad-1beb-4b11-b089-02c4c44b8a17.png"
+        alt="{{product.productName}}">
+    </swiper-slide>
+    }
+  </swiper-container>
+
+  <div>
+    <h1>{{product.productName}}</h1>
+    <p>{{product.description}}</p>
+    <p>{{product.price}}</p>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button>
+  </div>
+</div>
