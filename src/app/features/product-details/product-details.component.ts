@@ -13,6 +13,7 @@ import { Products, SingleProductResponse } from '../../core/models/data';
 })
 export class ProductDetailsComponent {
   product: Products = {} as Products;
+  selectedImage: string = '';
 
 
   constructor(private router: ActivatedRoute, private productService: ProductService) { }
@@ -21,7 +22,14 @@ export class ProductDetailsComponent {
     this.router.paramMap.subscribe((params) => {
       this.productService.fetchSingleProduct(params.get('id')!).subscribe((product: SingleProductResponse) => {
         this.product = product.data;
+        this.selectedImage = this.product.medias[0].url;
       })
     });
   }
+
+  selectImage(mediaUrl: string) {
+    this.selectedImage = mediaUrl;
+  }
+
+  /**todo finsish this entire screen  */
 }

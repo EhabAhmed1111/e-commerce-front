@@ -1,33 +1,81 @@
-<!-- swiper -->
-<div class="flex w-full justify-center flex-col sm:flex-row gap-4">
-  <swiper-container class="w-[700px] h-[550px] m-0">
-    @for(media of product.medias; track media.cloudinaryPublicId) {
-    <swiper-slide>
-      <img src=" {{media.url}}" alt="{{media.cloudinaryPublicId}}">
-    </swiper-slide>
-    }@empty {
-    <swiper-slide>
-      <img
-        src="https://res.cloudinary.com/dpc0ohu0g/image/upload/v1763827794/ecommerce/products/images/1c9d41ad-1beb-4b11-b089-02c4c44b8a17.png"
-        alt="{{product.productName}}">
-    </swiper-slide>
-    <swiper-slide>
-      <img
-        src="https://res.cloudinary.com/dpc0ohu0g/image/upload/v1763827794/ecommerce/products/images/1c9d41ad-1beb-4b11-b089-02c4c44b8a17.png"
-        alt="{{product.productName}}">
-    </swiper-slide>
-    <swiper-slide>
-      <img
-        src="https://res.cloudinary.com/dpc0ohu0g/image/upload/v1763827794/ecommerce/products/images/1c9d41ad-1beb-4b11-b089-02c4c44b8a17.png"
-        alt="{{product.productName}}">
-    </swiper-slide>
-    }
-  </swiper-container>
+<div class="bg-gray-50 font-sans antialiased text-gray-800 w-[100%]">
 
-  <div>
-    <h1>{{product.productName}}</h1>
-    <p>{{product.description}}</p>
-    <p>{{product.price}}</p>
-    <button class="bg-blue-500 text-white px-4 py-2 rounded">Add to Cart</button>
-  </div>
+  <main class="max-w-6xl mx-auto p-6 ">
+    <!-- Photo section -->
+    <div class="shadow-md rounded-2xl overflow-hidden grid grid-col-1 md:grid-cols-2 gap-6">
+      <!-- image gallery -->
+      <section class="p-6">
+        <div class="flex flex-col gap-4 md:flex-row">
+          <!-- w-96 h-96 border rounded flex items-center justify-center bg-white -->
+          <div class="flex flex-col md:flex-row gap-4">
+            <div class="w-full md:w-3/4">
+              <!-- contain make the all image appear  -->
+              <img [src]="selectedImage" alt="" class="w-full h-full object-contain p-6 ">
+            </div>
+          </div>
+
+          <!-- switch images -->
+          <div class="flex w-full overflow-auto gap-3 md:w-1/3 md:flex-col">
+            @for(media of product.medias; track media.cloudinaryPublicId) {
+            <button (click)="selectImage(media.url)" (mouseover)="selectImage(media.url)"
+              class="thumb focus:outline-none ">
+              <!-- cover make image cover the button even if the part of image is not visible -->
+              <img [src]="media.url" alt="" class="w-20 h-20 object-cover rounded-lg border">
+            </button>
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- Details section -->
+      <aside class="p-6">
+        <!-- product name -->
+        <div class="item-start flex justify-between">
+          <div>
+            <h1 class="font-semibold text-2xl md:text-3xl">{{product.productName}}</h1>
+            <div class="mt-2 flex items-center gap-3 text-sm">
+              <span class="bg-gray-100 px-2 py-1 rounded">{{product.brand}}</span>
+              <span class="bg-gray-100 px-2 py-1 rounded">{{product.categoryName}}</span>
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-bold text-indigo-600">
+              {{product.price}}
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-4 text-gray-600">{{product.description}}</p>
+
+        <!-- vendor -->
+        <!-- it should become button to move us to vendor profile -->
+        <div class="mt-6 flex items-center gap-3">
+          <img id="vendorAvatar" src="/path/to/avatar.jpg" alt="vendor" class="w-10 h-10 rounded-full object-cover" />
+          <div>
+            <div class="text-sm text-gray-600">Sold by</div>
+            <div id="vendorName" class="font-medium">{{product.vendor.name}}</div>
+          </div>
+        </div>
+
+        <!-- buying action -->
+        <div class="mt-6 flex flex-col sm:flex-row gap-3">
+          <div class="flex items-center gap-2">
+            <label for="quantity" class="sr-only">Quantity</label>
+            <!-- todo add condition if the value goes more than the amount of the product 
+             either make it red and show message says out of stock 
+             or more sensable option make the up arraw disabled -->
+            <input type="number" min="1" value="1" id="quantity" class="w-20 rounded-md border px-3 py-2">
+            <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500">Add to Cart</button>
+          </div>
+          <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">Buy now</button>
+        </div>
+
+        <!-- here may be we add full discrption -->
+      </aside>
+    </div>
+    <!-- todo finsish this screen tomorrow -->
+    <!-- here we will add review -->
+
+    <!-- and here we will add another product for this vendor -->
+  </main>
 </div>
