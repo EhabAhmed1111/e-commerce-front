@@ -19,4 +19,12 @@ export class ProductService {
     const url: string = 'http://localhost:8080/api/v1/';
     return this.http.get<SingleProductResponse>(`${url}products/${id}`)
   }
+
+  /** todo complete this function 
+   * you need to create interface to get the response
+   */
+  fetchProductsByVendorId(id: string): Observable<SingleProductResponse> {
+    const url: string = 'http://localhost:8080/api/v1/';
+    return this.http.get<SingleProductResponse>(`${url}products/${id}`)
+  }
 }
