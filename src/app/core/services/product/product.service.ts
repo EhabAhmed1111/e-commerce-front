@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProductsResponse, SingleProductResponse } from '../../models/data';
+import { ProductsForVendorResponse, ProductsResponse, SingleProductResponse } from '../../models/data';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -23,8 +23,8 @@ export class ProductService {
   /** todo complete this function 
    * you need to create interface to get the response
    */
-  fetchProductsByVendorId(id: string): Observable<SingleProductResponse> {
+  fetchProductsByVendorId(id: string): Observable<ProductsForVendorResponse> {
     const url: string = 'http://localhost:8080/api/v1/';
-    return this.http.get<SingleProductResponse>(`${url}products/${id}`)
+    return this.http.get<ProductsForVendorResponse>(`${url}products/vendor/${id}`)
   }
 }

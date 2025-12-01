@@ -37,6 +37,32 @@ export interface ProductsForShow {
   thumbnail: string | null
 }
 
+// these for product details
+export interface ProductsForVendorResponse {
+  message: string,
+  data: ProductsForVendor[]
+}
+export interface ProductsForVendor {
+  id: string,
+  productName: string,
+  price: number,
+  brand: string,
+  amount: number,
+  description: string,
+  categoryName: string,
+  medias: Media[]
+}
+export interface ProductsForVendorForShow {
+  id: string,
+  productName: string,
+  price: number,
+  brand: string,
+  amount: number,
+  description: string,
+  categoryName: string,
+  thumbnail: string | null
+}
+
 export interface Media {
   fileName: string,
   url: string,
@@ -77,7 +103,8 @@ export interface LoginRequest {
 }
 
 export interface User {
-  id: number,
-  name: string,
+  id: string,
+  firstName: string,
+  lastName: string,
   email: string,
 }
