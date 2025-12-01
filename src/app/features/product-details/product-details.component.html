@@ -50,10 +50,11 @@
         <!-- vendor -->
         <!-- it should become button to move us to vendor profile -->
         <div class="mt-6 flex items-center gap-3">
-          <img id="vendorAvatar" src="/path/to/avatar.jpg" alt="vendor" class="w-10 h-10 rounded-full object-cover" />
+          <fa-icon [icon]="faUser" class="w-10 h-10 text-gray-600 text-3xl text-center  rounded-full ob ject-cover">
+          </fa-icon>
           <div>
             <div class="text-sm text-gray-600">Sold by</div>
-            <div id="vendorName" class="font-medium">{{product.vendor.name}}</div>
+            <div id="vendorName" class="font-medium">{{product.vendor.firstName}} {{product.vendor.lastName}}</div>
           </div>
         </div>
 
@@ -73,9 +74,29 @@
         <!-- here may be we add full discrption -->
       </aside>
     </div>
-    <!-- todo finsish this screen tomorrow -->
-    <!-- here we will add review -->
 
     <!-- and here we will add another product for this vendor -->
+    <section class="my-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      @for(product of products; track product.id){
+      <div
+        class="bg-white cursor-pointer border border-gray-200 rounded-xl shadow-md overflow-hidden transition-all h-full flex flex-col hover:shadow-lg hover:-translate-y-0.5">
+        <a routerLink="/product/{{product.id}}" class="no-underline text-inherit flex flex-col h-full">
+          <div class="relative pt-[75%] overflow-hidden border-b border-gray-200">
+            <img
+              class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-250 hover:scale-105"
+              src="{{product.thumbnail}}" alt="{{product.productName}}" />
+          </div>
+          <div class="p-6 flex-grow flex flex-col gap-1">
+            <h5
+              class="font-sans font-semibold leading-tight text-slate-800 m-0 text-base mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
+              {{ product.productName }}</h5>
+            <span class="font-sans leading-normal m-0 text-base text-slate-800 font-bold text-primary">${{ product.price
+              }}</span>
+          </div>
+        </a>
+      </div>
+      }
+    </section>
+    <!-- here we will add review -->
   </main>
 </div>
