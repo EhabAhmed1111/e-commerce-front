@@ -1,85 +1,135 @@
 <app-header></app-header>
 
-<div class="w-full max-w-screen-xl mx-auto px-4 sm:px-6 md:px-8 pt-6 pb-16">
-  <div class="flex flex-col gap-4 mb-8 sm:flex-row sm:items-center sm:justify-between">
+<div class="min-h-screen bg-gray-50 pt-24 pb-12">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
 
+    <!-- Header Section -->
+    <div class="mb-10 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 tracking-tight">Discover Our Collection</h1>
+      <p class="text-gray-600 max-w-2xl mx-auto">Explore our curated selection of premium products designed to elevate
+        your lifestyle.</p>
+    </div>
 
-    <div class="flex flex-col gap-2 w-full overflow-x-auto pb-1 sm:w-auto sm:overflow-visible sm:pb-0 sm:flex-row">
-      <div class="w-full sm:w-2/5">
-        <!-- this search input could be better with ngrx -->
-        <input type="text" placeholder="Search products..." (input)="searchSubject.next($any($event.target).value)"
-          [(ngModel)]="searchText"
-          class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none placeholder:text-slate-400" />
+    <!-- Filters Section -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-10">
+      <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+
+        <!-- Search -->
+        <div class="w-full md:w-1/3 relative group">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <svg class="h-5 w-5 text-gray-400 group-focus-within:text-blue-500 transition-colors"
+              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                clip-rule="evenodd" />
+            </svg>
+          </div>
+          <input type="text" placeholder="Search products..." (input)="searchSubject.next($any($event.target).value)"
+            [(ngModel)]="searchText"
+            class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all outline-none placeholder-gray-400" />
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-3 w-full md:w-auto">
+          <!-- Category Filter -->
+          <div class="relative min-w-[140px]">
+            <select name="category" [(ngModel)]="category" (change)="onSelectCategoryChange($event)"
+              class="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2.5 px-4 pr-8 rounded-xl leading-tight focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all cursor-pointer text-sm font-medium">
+              <option value="All" selected>All Categories</option>
+              @for(category of categories; track category.id){
+              <option value="{{category.name}}">{{category.name}}</option>
+              }
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Price Filter (Placeholder) -->
+          <div class="relative min-w-[120px]">
+            <select name="price"
+              class="w-full appearance-none bg-gray-50 border border-gray-200 text-gray-700 py-2.5 px-4 pr-8 rounded-xl leading-tight focus:outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all cursor-pointer text-sm font-medium">
+              <option value="" disabled selected>Price</option>
+              <option value="low">Low to High</option>
+              <option value="high">High to Low</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="flex gap-2">
-        <!-- for category -->
-        <select name="category" [(ngModel)]="category" (change)="onSelectCategoryChange($event)"
-          class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
-          <option value="All" selected>All</option>
-          @for(category of categories; track category.id){
-          <!-- after we select element we send api req with this element -->
-          <option value="{{category.name}}">{{category.name}}</option>
-          }
-        </select>
+    </div>
 
-        <!-- for price -->
-        <select name="price"
-          class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
-          <option value="" disabled selected>Price</option>
-        </select>
+    <!-- Product Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      @for(product of filteredProducts; track product.id){
+      <div
+        class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-full">
+        <a routerLink="/product/{{product.id}}" class="flex flex-col h-full relative">
 
-        <!-- for reviews -->
-        <select name="reviews"
-          class="w-full border border-gray-300 rounded-lg font-sans text-base transition-all bg-white text-slate-800 cursor-pointer min-w-[120px] h-10 px-4 focus:border-primary focus:shadow-[0_0_0_3px_rgba(99,102,241,0.1)] focus:outline-none">
-          <option value="" disabled selected>Reviews</option>
-        </select>
+          <!-- Image Container -->
+          <div class="relative pt-[100%] overflow-hidden bg-gray-100">
+            <img
+              class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              src="{{product.thumbnail}}" alt="{{product.productName}}" />
 
+            <!-- Overlay / Quick Action -->
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+            <div
+              class="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+              <button
+                class="w-full bg-white text-gray-900 font-semibold py-2 rounded-lg shadow-lg hover:bg-gray-50 transition-colors text-sm">
+                View Details
+              </button>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="p-5 flex-grow flex flex-col">
+            <div class="mb-2">
+              <span
+                class="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-md uppercase tracking-wider">
+                {{ product.categoryName || 'Product' }}
+              </span>
+            </div>
+            <h5 class="font-bold text-gray-900 text-lg mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+              {{ product.productName }}
+            </h5>
+            <div class="mt-auto flex items-center justify-between">
+              <span class="text-xl font-bold text-gray-900">${{ product.price }}</span>
+              <div class="flex items-center gap-1 text-amber-400 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                  <path fill-rule="evenodd"
+                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                    clip-rule="evenodd" />
+                </svg>
+                <span class="text-gray-500 font-medium">4.5</span>
+              </div>
+            </div>
+          </div>
+        </a>
       </div>
+      }
+      @if(filteredProducts.length === 0) {
+      <div class="col-span-full text-center py-20">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
+          <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-medium text-gray-900">No products found</h3>
+        <p class="text-gray-500 mt-1">Try adjusting your search or filters.</p>
+      </div>
+      }
     </div>
-  </div>
-
-  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-    <!-- @if(filteredProducts.length === 0 ) {
-    @for(product of products; track product.id){
-    <div
-      class="bg-white cursor-pointer border border-gray-200 rounded-xl shadow-md overflow-hidden transition-all h-full flex flex-col hover:shadow-lg hover:-translate-y-0.5">
-      <a routerLink="/product/{{product.id}}" class="no-underline text-inherit flex flex-col h-full">
-        <div class="relative pt-[75%] overflow-hidden border-b border-gray-200">
-          <img
-            class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-250 hover:scale-105"
-            src="{{product.thumbnail}}" alt="{{product.productName}}" />
-        </div>
-        <div class="p-6 flex-grow flex flex-col gap-1">
-          <h5
-            class="font-sans font-semibold leading-tight text-slate-800 m-0 text-base mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
-            {{ product.productName }}</h5>
-          <span class="font-sans leading-normal m-0 text-base text-slate-800 font-bold text-primary">${{ product.price
-            }}</span>
-        </div>
-      </a>
-    </div>
-    } -->
-
-    @for(product of filteredProducts; track product.id){
-    <div
-      class="bg-white cursor-pointer border border-gray-200 rounded-xl shadow-md overflow-hidden transition-all h-full flex flex-col hover:shadow-lg hover:-translate-y-0.5">
-      <a routerLink="/product/{{product.id}}" class="no-underline text-inherit flex flex-col h-full">
-        <div class="relative pt-[75%] overflow-hidden border-b border-gray-200">
-          <img
-            class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-250 hover:scale-105"
-            src="{{product.thumbnail}}" alt="{{product.productName}}" />
-        </div>
-        <div class="p-6 flex-grow flex flex-col gap-1">
-          <h5
-            class="font-sans font-semibold leading-tight text-slate-800 m-0 text-base mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
-            {{ product.productName }}</h5>
-          <span class="font-sans leading-normal m-0 text-base text-slate-800 font-bold text-primary">${{ product.price
-            }}</span>
-        </div>
-      </a>
-    </div>
-    }
-
-
   </div>
 </div>
+
+<app-footer></app-footer>

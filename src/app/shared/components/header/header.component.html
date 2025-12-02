@@ -1,56 +1,81 @@
-<div class="flex items-center justify-between bg-white px-4 py-2 shadow-sm relative z-20">
+<header
+  class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
+  <div class="container mx-auto px-4 lg:px-8">
+    <div class="flex items-center justify-between h-16 lg:h-20">
 
-  <div class="hidden lg:flex gap-6">
-    <a routerLinkActive="!text-primary" [routerLinkActiveOptions]="{exact: true}" routerLink="/"
-      class="flex items-center justify-center rounded-lg  no-underline cursor-pointer transition-all select-none px-6 text-base bg-white text-gray-600 hover:text-primary">Home</a>
-    <a routerLinkActive="!text-primary" routerLink="/product"
-      class="flex items-center justify-center rounded-lg  no-underline cursor-pointer transition-all select-none px-6 text-base bg-white text-gray-600 hover:text-primary">Products</a>
+      <!-- Logo -->
+      <a routerLink="/" class="flex items-center gap-2 group">
+        <span
+          class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent group-hover:opacity-90 transition-opacity">
+          ShopVerse
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center gap-8">
+        <a routerLink="/" routerLinkActive="text-blue-600 font-semibold bg-blue-50"
+          [routerLinkActiveOptions]="{exact: true}"
+          class="px-4 py-2 rounded-full text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-all duration-200 text-sm font-medium">
+          Home
+        </a>
+        <a routerLink="/product" routerLinkActive="text-blue-600 font-semibold bg-blue-50"
+          class="px-4 py-2 rounded-full text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-all duration-200 text-sm font-medium">
+          Products
+        </a>
+      </nav>
+
+      <!-- Right Actions (Cart & Auth) -->
+      <div class="hidden lg:flex items-center gap-4">
+        <!-- Cart -->
+        <a routerLink="/cart" class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors group">
+          <fa-icon [icon]="faCartIcon" class="text-xl"></fa-icon>
+          <span
+            class="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-500 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+            1
+          </span>
+        </a>
+
+        <!-- Auth Button -->
+        <a routerLink="/auth" routerLinkActive="bg-blue-700 ring-2 ring-blue-200"
+          class="px-6 py-2.5 rounded-full bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 active:scale-95 transition-all shadow-md hover:shadow-lg">
+          Sign In
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button (click)="toggleMenu()"
+        class="lg:hidden p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none">
+        <fa-icon [icon]="isMenuOpen ? faTimesIcon : faBarsIcon" class="text-xl"></fa-icon>
+      </button>
+    </div>
   </div>
 
-  <div class="logo-title">
-    <a class="text-2xl font-bold text-primary cursor-pointer text-center whitespace-nowrap transition-colors hover:no-underline hover:text-indigo-700"
-      routerLink="/">
-      ElsoooQ.com
-    </a>
+  <!-- Mobile Menu Dropdown -->
+  <div *ngIf="isMenuOpen"
+    class="lg:hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 shadow-xl animate-slideDown">
+    <div class="p-4 flex flex-col gap-2">
+      <a routerLink="/" (click)="toggleMenu()" routerLinkActive="bg-blue-50 text-blue-600 font-semibold"
+        [routerLinkActiveOptions]="{exact: true}"
+        class="px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors flex items-center justify-between">
+        Home
+      </a>
+      <a routerLink="/product" (click)="toggleMenu()" routerLinkActive="bg-blue-50 text-blue-600 font-semibold"
+        class="px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors flex items-center justify-between">
+        Products
+      </a>
+      <a routerLink="/cart" (click)="toggleMenu()" routerLinkActive="bg-blue-50 text-blue-600 font-semibold"
+        class="px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors flex items-center justify-between">
+        <span>Cart</span>
+        <div class="flex items-center gap-2">
+          <span class="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">1 Item</span>
+          <fa-icon [icon]="faCartIcon"></fa-icon>
+        </div>
+      </a>
+      <div class="h-px bg-gray-100 my-2"></div>
+      <a routerLink="/auth" (click)="toggleMenu()"
+        class="w-full py-3 rounded-xl bg-blue-600 text-white text-center font-medium hover:bg-blue-700 active:scale-95 transition-all shadow-md">
+        Sign In / Register
+      </a>
+    </div>
   </div>
-
-  <div class="hidden lg:flex items-center gap-6">
-    <a
-      class="flex flex-col items-center relative justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base text-gray-600 bg-white border border-primary hover:bg-gray-50">
-      <p
-        class="flex w-5 h-5 justify-center items-center m-0 text-xs font-bold text-white bg-red-500 rounded-full text-center transition-all absolute bottom-0 left-4">
-        1</p>
-      <fa-icon [icon]="faCartIcon" class="text-2xl hover:text-primary"></fa-icon>
-    </a>
-    <a routerLinkActive="!text-primary" routerLink="/auth"
-      class="flex items-center justify-center rounded-lg  no-underline cursor-pointer transition-all select-none px-6 text-base bg-white text-gray-600 hover:text-primary">Register</a>
-  </div>
-
-  <button
-    class="lg:hidden inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium cursor-pointer transition-all whitespace-nowrap select-none bg-secondary p-1"
-    (click)="toggleMenu()">
-    <!-- todo change it to icon-->
-    <img src="menu.png" alt="" class="">
-  </button>
-
-</div>
-<div *ngIf="isMenuOpen"
-  class="lg:hidden flex flex-col gap-2 p-4 rounded-2xl border border-gray-200 shadow-md bg-gray-50 absolute top-[7%] right-0 w-52 animate-slideDown z-10">
-  <a routerLink="/"
-    class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary w-full text-left hover:bg-gray-100"
-    (click)="toggleMenu()">Home</a>
-  <a routerLink="/product"
-    class="inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary w-full text-left hover:bg-gray-100"
-    (click)="toggleMenu()">Products</a>
-  <a routerLink="/cart"
-    class="flex flex-col relative bg-white inline-flex items-center justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base text-primary border border-primary w-full text-left hover:bg-gray-100"
-    (click)="toggleMenu()">
-    <p
-      class="m-0 text-sm font-bold text-white bg-red-500 rounded-full px-1 min-w-[1.5rem] text-center transition-all absolute -top-2 -right-4">
-      1</p>
-    <fa-icon [icon]="faCartIcon" class="cart-icon"></fa-icon>
-  </a>
-  <a routerLink="/auth"
-    class="inline-flex items-cente r justify-center gap-2 border-none rounded-lg font-medium no-underline cursor-pointer transition-all whitespace-nowrap select-none h-10 px-6 text-base bg-white text-primary border border-primary w-full text-left hover:bg-gray-100"
-    (click)="toggleMenu()">Register</a>
-</div>
+</header>

@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +12,8 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 })
 export class HeaderComponent {
   faCartIcon = faCartShopping;
+  faBarsIcon = faBars;
+  faTimesIcon = faTimes;
 
   isMenuOpen = false;
   /**todo 

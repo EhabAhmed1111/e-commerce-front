@@ -7,9 +7,11 @@ import { CategoryService } from '../../core/services/category/category.service';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, forkJoin, Subject, Subscription } from 'rxjs';
 
+import { FooterComponent } from '../../shared/components/footer/footer.component';
+
 @Component({
   selector: 'app-product',
-  imports: [HeaderComponent, FormsModule, RouterLink],
+  imports: [HeaderComponent, FooterComponent, FormsModule, RouterLink],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
 })
