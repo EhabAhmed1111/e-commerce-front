@@ -31,8 +31,6 @@
           formControlName="password" />
         @if(loginForm.get('password')?.hasError('required')){
         <span class="text-red-500">Password is required</span>
-        }@else if(loginForm.get('password')?.invalid){
-        <span class="text-red-500">Password must be Like A-a-1-&#64;-&#36;-&#63;</span>
         }
       </div>
 

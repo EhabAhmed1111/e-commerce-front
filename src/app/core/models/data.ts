@@ -108,3 +108,27 @@ export interface User {
   lastName: string,
   email: string,
 }
+
+/* reviews */
+export interface ReviewResponse {
+  message: string,
+  data: Review[]
+}
+
+export interface ReviewResponseForAddReview {
+  message: string,
+  data: Review
+}
+
+export interface Review {
+  id: string,
+  userDto: User,
+  rating: number,
+  content: string,
+  createdAt: Date
+} 
+
+export interface ReviewRequest {
+  rating: number,
+  content: string
+}
