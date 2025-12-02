@@ -13,7 +13,7 @@ import { LoginRequest } from '../../../core/models/data';
 export class LoginComponent {
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('^(?=.*[A-Za-z])(?=.*[^A-Za-z0-9]).{8,}$')])
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
   constructor(private loginService: LoginService, private router: Router) { }
