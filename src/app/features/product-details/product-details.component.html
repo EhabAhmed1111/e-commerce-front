@@ -1,102 +1,134 @@
-<div class="bg-gray-50 font-sans antialiased text-gray-800 w-[100%]">
+<app-header></app-header>
 
-  <main class="max-w-6xl mx-auto p-6 ">
-    <!-- Photo section -->
-    <div class="shadow-md rounded-2xl overflow-hidden grid grid-col-1 md:grid-cols-2 gap-6">
-      <!-- image gallery -->
-      <section class="p-6">
-        <div class="flex flex-col gap-4 md:flex-row">
-          <!-- w-96 h-96 border rounded flex items-center justify-center bg-white -->
-          <div class="flex flex-col md:flex-row gap-4">
-            <div class="w-full md:w-3/4">
-              <!-- contain make the all image appear  -->
-              <img [src]="selectedImage" alt="" class="w-full h-full object-contain p-6 ">
+<div class="min-h-screen bg-gray-50 pt-24 pb-12 font-sans text-gray-800">
+  <main class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Product Section -->
+    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden mb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-8">
+
+        <!-- Image Gallery -->
+        <div class="p-6 lg:p-10 bg-gray-50/50">
+          <div class="flex flex-col gap-6 h-full">
+            <!-- Main Image -->
+            <div
+              class="relative aspect-square w-full bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+              <img [src]="selectedImage" alt="{{product.productName}}"
+                class="w-full h-full object-contain p-8 transition-transform duration-500 group-hover:scale-105">
             </div>
-          </div>
 
-          <!-- switch images -->
-          <div class="flex w-full overflow-auto gap-3 md:w-1/3 md:flex-col">
-            @for(media of product.medias; track media.cloudinaryPublicId) {
-            <button (click)="selectImage(media.url)" (mouseover)="selectImage(media.url)"
-              class="thumb focus:outline-none ">
-              <!-- cover make image cover the button even if the part of image is not visible -->
-              <img [src]="media.url" alt="" class="w-20 h-20 object-cover rounded-lg border">
-            </button>
-            }
-          </div>
-        </div>
-      </section>
-
-      <!-- Details section -->
-      <aside class="p-6">
-        <!-- product name -->
-        <div class="item-start flex justify-between">
-          <div>
-            <h1 class="font-semibold text-2xl md:text-3xl">{{product.productName}}</h1>
-            <div class="mt-2 flex items-center gap-3 text-sm">
-              <span class="bg-gray-100 px-2 py-1 rounded">{{product.brand}}</span>
-              <span class="bg-gray-100 px-2 py-1 rounded">{{product.categoryName}}</span>
-            </div>
-          </div>
-          <div class="text-right">
-            <div class="text-2xl font-bold text-indigo-600">
-              {{product.price}}
+            <!-- Thumbnails -->
+            <div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+              @for(media of product.medias; track media.cloudinaryPublicId) {
+              <button (click)="selectImage(media.url)" (mouseover)="selectImage(media.url)"
+                class="flex-shrink-0 w-20 h-20 rounded-xl border-2 overflow-hidden transition-all duration-200 focus:outline-none"
+                [class.border-blue-500]="selectedImage === media.url"
+                [class.border-gray-200]="selectedImage !== media.url">
+                <img [src]="media.url" alt="" class="w-full h-full object-cover">
+              </button>
+              }
             </div>
           </div>
         </div>
 
-        <p class="mt-4 text-gray-600">{{product.description}}</p>
+        <!-- Product Info -->
+        <div class="p-6 lg:p-10 flex flex-col">
+          <div class="mb-auto">
+            <div class="flex items-center gap-3 mb-4">
+              <span
+                class="px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider rounded-full">{{product.brand}}</span>
+              <span
+                class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold uppercase tracking-wider rounded-full">{{product.categoryName}}</span>
+            </div>
 
-        <!-- vendor -->
-        <!-- it should become button to move us to vendor profile -->
-        <div class="mt-6 flex items-center gap-3">
-          <fa-icon [icon]="faUser" class="w-10 h-10 text-gray-600 text-3xl text-center  rounded-full ob ject-cover">
-          </fa-icon>
-          <div>
-            <div class="text-sm text-gray-600">Sold by</div>
-            <div id="vendorName" class="font-medium">{{product.vendor.firstName}} {{product.vendor.lastName}}</div>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">{{product.productName}}</h1>
+
+            <div class="flex items-baseline gap-4 mb-6">
+              <span class="text-4xl font-bold text-gray-900">${{product.price}}</span>
+              <!-- Placeholder for discount/original price if available -->
+              <!-- <span class="text-lg text-gray-400 line-through">$129.99</span> -->
+            </div>
+
+            <p class="text-gray-600 leading-relaxed mb-8 text-lg">{{product.description}}</p>
+
+            <!-- Vendor Info -->
+            <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl mb-8 border border-gray-100">
+              <div
+                class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-400 border border-gray-200">
+                <fa-icon [icon]="faUser" class="text-xl"></fa-icon>
+              </div>
+              <div>
+                <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Sold by</p>
+                <p class="font-bold text-gray-900">{{product.vendor?.firstName}} {{product.vendor?.lastName}}</p>
+              </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-100">
+              <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden w-max">
+                <button class="px-4 py-3 hover:bg-gray-50 text-gray-600 transition-colors">-</button>
+                <input type="number" min="1" value="1"
+                  class="w-16 text-center border-x border-gray-300 py-3 focus:outline-none text-gray-900 font-medium appearance-none m-0">
+                <button class="px-4 py-3 hover:bg-gray-50 text-gray-600 transition-colors">+</button>
+              </div>
+              <button
+                class="flex-1 px-8 py-3.5 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-200 active:scale-95">
+                Add to Cart
+              </button>
+              <button
+                class="flex-1 px-8 py-3.5 bg-white text-gray-900 font-bold border border-gray-200 rounded-xl hover:bg-gray-50 transition-all active:scale-95">
+                Buy Now
+              </button>
+            </div>
           </div>
         </div>
-
-        <!-- buying action -->
-        <div class="mt-6 flex flex-col sm:flex-row gap-3">
-          <div class="flex items-center gap-2">
-            <label for="quantity" class="sr-only">Quantity</label>
-            <!-- todo add condition if the value goes more than the amount of the product 
-             either make it red and show message says out of stock 
-             or more sensable option make the up arraw disabled -->
-            <input type="number" min="1" value="1" id="quantity" class="w-20 rounded-md border px-3 py-2">
-            <button class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-500">Add to Cart</button>
-          </div>
-          <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">Buy now</button>
-        </div>
-
-        <!-- here may be we add full discrption -->
-      </aside>
+      </div>
     </div>
 
-    <!-- and here we will add another product for this vendor -->
-    <section class="my-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      @for(product of products; track product.id){
-      <div
-        class="bg-white cursor-pointer border border-gray-200 rounded-xl shadow-md overflow-hidden transition-all h-full flex flex-col hover:shadow-lg hover:-translate-y-0.5">
-        <a routerLink="/product/{{product.id}}" class="no-underline text-inherit flex flex-col h-full">
-          <div class="relative pt-[75%] overflow-hidden border-b border-gray-200">
-            <img
-              class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-250 hover:scale-105"
-              src="{{product.thumbnail}}" alt="{{product.productName}}" />
-          </div>
-          <div class="p-6 flex-grow flex flex-col gap-1">
-            <h5
-              class="font-sans font-semibold leading-tight text-slate-800 m-0 text-base mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
-              {{ product.productName }}</h5>
-            <span class="font-sans leading-normal m-0 text-base text-slate-800 font-bold text-primary">${{ product.price
-              }}</span>
-          </div>
-        </a>
+    <!-- Recommendations -->
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-3">
+        <span class="w-1 h-8 bg-blue-600 rounded-full"></span>
+        You Might Also Like
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        @for(product of products; track product.id){
+        <div
+          class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-full">
+          <a routerLink="/product/{{product.id}}" class="flex flex-col h-full relative">
+            <div class="relative pt-[100%] overflow-hidden bg-gray-100">
+              <img
+                class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                src="{{product.thumbnail}}" alt="{{product.productName}}" />
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
+            </div>
+            <div class="p-5 flex-grow flex flex-col">
+              <h5 class="font-bold text-gray-900 text-lg mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                {{ product.productName }}
+              </h5>
+              <div class="mt-auto">
+                <span class="text-xl font-bold text-gray-900">${{ product.price }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+        }
       </div>
-      }
-    </section>
-    <!-- here we will add review -->
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 lg:p-12">
+      <h2 class="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-3">
+        <span class="w-1 h-8 bg-blue-600 rounded-full"></span>
+        Customer Reviews
+      </h2>
+      <div class="text-center py-12 bg-gray-50 rounded-2xl border border-dashed border-gray-300">
+        <p class="text-gray-500">No reviews yet. Be the first to review this product!</p>
+      </div>
+    </div>
+
   </main>
 </div>
+
+<app-footer></app-footer>
