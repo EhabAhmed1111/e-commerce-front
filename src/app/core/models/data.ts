@@ -23,6 +23,7 @@ export interface Products {
   categoryName: string,
   medias: Media[]
   vendor: User
+  avgRate: number | null
 }
 
 export interface ProductsForShow {
@@ -34,7 +35,8 @@ export interface ProductsForShow {
   description: string,
   categoryName: string,
   medias: Media[],
-  thumbnail: string | null
+  thumbnail: string | null,
+  avgRate: number | null
 }
 
 // these for product details
@@ -50,7 +52,9 @@ export interface ProductsForVendor {
   amount: number,
   description: string,
   categoryName: string,
-  medias: Media[]
+  medias: Media[],
+  avgRate: number | null
+
 }
 export interface ProductsForVendorForShow {
   id: string,
@@ -60,7 +64,8 @@ export interface ProductsForVendorForShow {
   amount: number,
   description: string,
   categoryName: string,
-  thumbnail: string | null
+  thumbnail: string | null,
+  avgRate: number | null
 }
 
 export interface Media {
@@ -131,4 +136,17 @@ export interface Review {
 export interface ReviewRequest {
   rating: number,
   content: string
+}
+
+// this interface is for decoded token
+export interface DecodedToken {
+  // email
+  sub: string;
+  // role
+  role: string;
+  // issue time
+  iat: number;
+  // expire time
+  exp: number;
+  [key: string]: any;
 }
