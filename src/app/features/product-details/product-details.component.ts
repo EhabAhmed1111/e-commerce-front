@@ -10,11 +10,12 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { ReviewsService } from '../../core/services/reviews/reviews.service';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
+import { NgFor, NgClass } from '@angular/common';
+import { JwtService } from '../../core/services/auth/jwt/jwt.service';
 
 @Component({
   selector: 'app-product-details',
-  imports: [RouterLink, FaIconComponent, HeaderComponent, FooterComponent, FormsModule, NgFor],
+  imports: [RouterLink, FaIconComponent, HeaderComponent, FooterComponent, FormsModule, NgFor, NgClass],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
   /* for using custom element tags */
@@ -37,7 +38,7 @@ areYouOwner: boolean = false;
 
 
 
-  constructor(private router: ActivatedRoute, private productService: ProductService, private reviewService: ReviewsService) { }
+  constructor(private router: ActivatedRoute, private productService: ProductService, private reviewService: ReviewsService, private jwtService: JwtService) { }
   // here we will make api req and we will remove the var we make it direct
   ngOnInit() {
     this.router.paramMap.subscribe((params) => {
@@ -45,7 +46,7 @@ areYouOwner: boolean = false;
       this.productService.fetchSingleProduct(params.get('id')!).subscribe((product: SingleProductResponse) => {
         this.product = product.data;
         this.selectedImage = this.product.medias[0].url;
-        if(this.product.vendor.id === localStorage.getItem('token')) {
+        if(this.product.vendor.email === this.jwtService.getEmailFromToken()) {
           this.areYouOwner = true;
         }
 

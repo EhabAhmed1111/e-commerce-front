@@ -2,31 +2,45 @@
 
 <div class="min-h-screen bg-gray-50/50 pt-28 pb-20 font-sans text-gray-800">
   <main class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-
     <!-- Product Section -->
-    <div class="bg-white rounded-[2rem] shadow-xl shadow-blue-900/5 border border-white/50 overflow-hidden mb-16">
+    <div
+      class="bg-white rounded-[2rem] shadow-xl shadow-blue-900/5 border border-white/50 overflow-hidden mb-16"
+    >
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-12">
-
         <!-- Image Gallery -->
         <div class="lg:col-span-7 p-6 lg:p-12 bg-gray-50/30">
           <div class="flex flex-col gap-6 h-full">
             <!-- Main Image -->
             <div
-              class="relative aspect-[4/3] w-full bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden group flex items-center justify-center p-8">
-              <img [src]="selectedImage" alt="{{product.productName}}"
-                class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110">
+              class="relative aspect-[4/3] w-full bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden group flex items-center justify-center p-8"
+            >
+              <img
+                [src]="selectedImage"
+                alt="{{ product.productName }}"
+                class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
+              />
             </div>
 
             <!-- Thumbnails -->
-            <div class="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
+            <div class="p-1 flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
               @for(media of product.medias; track media.cloudinaryPublicId) {
-              <button (click)="selectImage(media.url)" (mouseover)="selectImage(media.url)"
+              <button
+                (click)="selectImage(media.url)"
+                (mouseover)="selectImage(media.url)"
                 class="flex-shrink-0 w-24 h-24 rounded-2xl border-2 overflow-hidden transition-all duration-300 focus:outline-none bg-white p-2"
-                [class.border-blue-600]="selectedImage === media.url" [class.ring-4]="selectedImage === media.url"
-                [class.ring-blue-600]="selectedImage === media.url" [class.scale-95]="selectedImage !== media.url"
-                [class.opacity-70]="selectedImage !== media.url" [class.hover:opacity-100]="selectedImage !== media.url"
-                [class.border-transparent]="selectedImage !== media.url">
-                <img [src]="media.url" alt="" class="w-full h-full object-contain">
+                [class.border-blue-600]="selectedImage === media.url"
+                [class.ring-4]="selectedImage === media.url"
+                [class.ring-blue-600]="selectedImage === media.url"
+                [class.scale-95]="selectedImage !== media.url"
+                [class.opacity-70]="selectedImage !== media.url"
+                [class.hover:opacity-100]="selectedImage !== media.url"
+                [class.border-transparent]="selectedImage !== media.url"
+              >
+                <img
+                  [src]="media.url"
+                  alt=""
+                  class="w-full h-full object-contain"
+                />
               </button>
               }
             </div>
@@ -34,34 +48,66 @@
         </div>
 
         <!-- Product Info -->
-        <div class="lg:col-span-5 p-6 lg:p-12 lg:pl-0 flex flex-col justify-center">
+        <div
+          class="lg:col-span-5 p-6 lg:p-12 lg:pl-0 flex flex-col justify-center"
+        >
           <div class="mb-auto">
-            <div class="flex flex-wrap items-center gap-3 mb-6">
-              <span
-                class="px-4 py-1.5 bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider rounded-full border border-blue-100 shadow-sm">{{product.brand}}</span>
-              <span
-                class="px-4 py-1.5 bg-gray-100 text-gray-600 text-xs font-bold uppercase tracking-wider rounded-full border border-gray-200">{{product.categoryName}}</span>
+            <div class="flex flex-wrap justify-between items-center gap-3 mb-6">
+              <div class="flex items-center gap-3">
+
+                <span
+                class="px-4 py-1.5 bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider rounded-full border border-blue-100 shadow-sm"
+                >{{ product.brand }}</span
+                >
+                <span
+                class="px-4 py-1.5 bg-gray-100 text-gray-600 text-xs font-bold uppercase tracking-wider rounded-full border border-gray-200"
+                >{{ product.categoryName }}</span
+                >
+              </div>
+               <div class="flex items-center gap-1 text-amber-400 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                  <path fill-rule="evenodd"
+                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                    clip-rule="evenodd" />
+                </svg>
+                <span class="text-gray-500 text-xl font-medium">{{product.avgRate ?? 0}}</span>
+              </div>
+              </div>
+            
+            
+            <div class="flex items-baseline justify-between gap-4 ">
+              <h1
+                class="text-2xl lg:text-4xl font-extrabold text-gray-900 mb-6 leading-tight tracking-tight"
+              >
+                {{ product.productName }}
+              </h1>
+              <span class="text-3xl font-bold text-gray-900 tracking-tight"
+                >${{ product.price }}</span
+              >
             </div>
 
-            <h1 class="text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 leading-tight tracking-tight">
-              {{product.productName}}</h1>
-
-            <div class="flex items-baseline gap-4 mb-8">
-              <span class="text-5xl font-bold text-gray-900 tracking-tight">${{product.price}}</span>
-            </div>
-
-            <p class="text-gray-600 leading-relaxed mb-10 text-lg font-medium">{{product.description}}</p>
+            <p class="text-gray-600 leading-relaxed mb-10 text-lg font-medium">
+              {{ product.description }}
+            </p>
 
             <!-- Vendor Info -->
             <div
-              class="flex items-center gap-5 p-5 bg-white/50 backdrop-blur-sm rounded-2xl mb-10 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+              class="flex items-center gap-5 p-5 bg-white/50 backdrop-blur-sm rounded-2xl mb-10 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300"
+            >
               <div
-                class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/20 text-white">
+                class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/20 text-white"
+              >
                 <fa-icon [icon]="faUser" class="text-xl"></fa-icon>
               </div>
               <div>
-                <p class="text-xs text-gray-500 font-bold uppercase tracking-wider mb-0.5">Sold by</p>
-                <p class="font-bold text-gray-900 text-lg">{{product.vendor?.firstName}} {{product.vendor?.lastName}}</p>
+                <p
+                  class="text-xs text-gray-500 font-bold uppercase tracking-wider mb-0.5"
+                >
+                  Sold by
+                </p>
+                <p class="font-bold text-gray-900 text-lg">
+                  {{ product.vendor?.firstName }} {{ product.vendor?.lastName }}
+                </p>
               </div>
             </div>
 
@@ -69,21 +115,28 @@
             <div class="flex flex-col gap-4 pt-8 border-t border-gray-100">
               <div class="flex gap-4">
                 <div
-                  class="flex items-center border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm h-14">
+                  class="flex items-center border border-gray-200 rounded-2xl overflow-hidden bg-white shadow-sm h-14"
+                >
                   <!-- <button
                     class="px-5 h-full hover:bg-gray-50 text-gray-500 hover:text-blue-600 transition-colors font-bold text-xl">-</button> -->
-                  <input type="number" min="1" value="1"
-                    class="w-16 text-center border-x border-gray-100 h-full focus:outline-none text-gray-900 font-bold text-lg appearance-none m-0">
+                  <input
+                    type="number"
+                    min="1"
+                    value="1"
+                    class="w-16 text-center border-x border-gray-100 h-full focus:outline-none text-gray-900 font-bold text-lg appearance-none m-0"
+                  />
                   <!-- <button
                     class="px-5 h-full hover:bg-gray-50 text-gray-500 hover:text-blue-600 transition-colors font-bold text-xl">+</button> -->
                 </div>
                 <button
-                  class="flex-1 px-8 h-14 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-lg rounded-2xl hover:shadow-lg hover:shadow-blue-600/30 hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98]">
+                  class="flex-1 px-8 h-14 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-lg rounded-2xl hover:shadow-lg hover:shadow-blue-600/30 hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98]"
+                >
                   Add to Cart
                 </button>
               </div>
               <button
-                class="w-full px-8 h-14 bg-white text-gray-900 font-bold text-lg border-2 border-gray-100 rounded-2xl hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 ease-in-out active:scale-[0.98]">
+                class="w-full px-8 h-14 bg-white text-gray-900 font-bold text-lg border-2 border-gray-100 rounded-2xl hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 ease-in-out active:scale-[0.98]"
+              >
                 Buy Now
               </button>
             </div>
@@ -99,171 +152,221 @@
           <span class="w-1.5 h-8 bg-blue-600 rounded-full"></span>
           You Might Also Like
         </h2>
-        <a routerLink="/" class="text-blue-600 font-bold hover:text-blue-700 flex items-center gap-2 group">
-          View all <span class="group-hover:translate-x-1 transition-transform">→</span>
+        <a
+          routerLink="/"
+          class="text-blue-600 font-bold hover:text-blue-700 flex items-center gap-2 group"
+        >
+          View all
+          <span class="group-hover:translate-x-1 transition-transform">→</span>
         </a>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         @for(product of products; track product.id){
-           <div
-        class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-full">
-        <a routerLink="/product/{{product.id}}" class="flex flex-col h-full relative">
+        <div
+          class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col h-full"
+        >
+          <a
+            routerLink="/product/{{ product.id }}"
+            class="flex flex-col h-full relative"
+          >
+            <!-- Image Container -->
+            <div class="relative pt-[100%] overflow-hidden bg-gray-100">
+              <img
+                class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                src="{{ product.thumbnail }}"
+                alt="{{ product.productName }}"
+              />
 
-          <!-- Image Container -->
-          <div class="relative pt-[100%] overflow-hidden bg-gray-100">
-            <img
-              class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              src="{{product.thumbnail}}" alt="{{product.productName}}" />
-
-            <!-- Overlay / Quick Action -->
-            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"></div>
-            <div
-              class="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-              <button
-                class="w-full bg-white text-gray-900 font-semibold py-2 rounded-lg shadow-lg hover:bg-gray-50 transition-colors text-sm">
-                View Details
-              </button>
-            </div>
-          </div>
-
-          <!-- Content -->
-          <div class="p-5 flex-grow flex flex-col">
-            <div class="mb-2">
-              <span
-                class="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-md uppercase tracking-wider">
-                {{ product.categoryName || 'Product' }}
-              </span>
-            </div>
-            <h5 class="font-bold text-gray-900 text-lg mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
-              {{ product.productName }}
-            </h5>
-            <div class="mt-auto flex items-center justify-between">
-              <span class="text-xl font-bold text-gray-900">${{ product.price }}</span>
-              <div class="flex items-center gap-1 text-amber-400 text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-                  <path fill-rule="evenodd"
-                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                    clip-rule="evenodd" />
-                </svg>
-                <span class="text-gray-500 font-medium">4.5</span>
+              <!-- Overlay / Quick Action -->
+              <div
+                class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300"
+              ></div>
+              <div
+                class="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300"
+              >
+                <button
+                  class="w-full bg-white text-gray-900 font-semibold py-2 rounded-lg shadow-lg hover:bg-gray-50 transition-colors text-sm"
+                >
+                  View Details
+                </button>
               </div>
             </div>
-          </div>
-        </a>
-      </div>
+
+            <!-- Content -->
+            <div class="p-5 flex-grow flex flex-col">
+              <div class="mb-2">
+                <span
+                  class="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-md uppercase tracking-wider"
+                >
+                  {{ product.categoryName || "Product" }}
+                </span>
+              </div>
+              <h5
+                class="font-bold text-gray-900 text-lg mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors"
+              >
+                {{ product.productName }}
+              </h5>
+              <div class="mt-auto flex items-center justify-between">
+                <span class="text-xl font-bold text-gray-900"
+                  >${{ product.price }}</span
+                >
+                <div class="flex items-center gap-1 text-amber-400 text-sm">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-4 h-4"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <span class="text-gray-500 font-medium">{{ product.avgRate ?? 0 }}</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
         }
       </div>
     </div>
 
     <!-- Reviews Section -->
-    <div class="bg-white rounded-[2rem] shadow-lg shadow-gray-200/50 border border-gray-100 p-8 lg:p-12">
+    <div
+      class="bg-white rounded-[2rem] shadow-lg shadow-gray-200/50 border border-gray-100 p-8 lg:p-12"
+    >
       <div class="flex items-center justify-between mb-10">
         <h2 class="text-3xl font-bold text-gray-900 flex items-center gap-4">
           <span class="w-1.5 h-8 bg-blue-600 rounded-full"></span>
           Customer Reviews
         </h2>
         <div class="flex items-center gap-4">
-          <button (click)="toggleAddReviewModal()" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-sm rounded-full hover:shadow-lg hover:shadow-blue-600/30 hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98]">Add Review</button>
-          
+          <button
+            (click)="toggleAddReviewModal()"
+            [ngClass]="{ 'hidden': areYouOwner }"
+            class="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-sm rounded-full hover:shadow-lg hover:shadow-blue-600/30 hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98]"
+          >
+            Add Review
+          </button>
+
           <!-- add review section -->
-           @if (isAddReviewModalOpen) {
+          @if (isAddReviewModalOpen) {
+          <div
+            class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
+          >
+            <!-- Dialog box -->
             <div
-  class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50"
->
-  <!-- Dialog box -->
-  <div class="bg-white rounded-2xl w-[90%] max-w-md p-6 shadow-xl animate-fadeIn">
+              class="bg-white rounded-2xl w-[90%] max-w-md p-6 shadow-xl animate-fadeIn"
+            >
+              <!-- Title -->
+              <h2 class="text-xl font-semibold mb-3">Add Review</h2>
 
-    <!-- Title -->
-    <h2 class="text-xl font-semibold mb-3">Add Review</h2>
+              <!-- Star Rating -->
+              <div class="flex gap-2 mb-4">
+                <!-- this could be @for -->
+                <ng-container *ngFor="let s of stars; let i = index">
+                  <span
+                    (click)="setRating(i + 1)"
+                    class="cursor-pointer text-3xl transition"
+                    [class.text-yellow-400]="rating >= i + 1"
+                    [class.text-gray-300]="rating < i + 1"
+                  >
+                    ★
+                  </span>
+                </ng-container>
+              </div>
 
-    <!-- Star Rating -->
-    <div class="flex gap-2 mb-4">
-      <!-- this could be @for -->
-      <ng-container *ngFor="let s of stars; let i = index">
-        <span 
-          (click)="setRating(i + 1)"
-          class="cursor-pointer text-3xl transition"
-          [class.text-yellow-400]="rating >= i + 1"
-          [class.text-gray-300]="rating < i + 1"
-        >
-          ★
-        </span>
-      </ng-container>
-    </div>
+              <!-- Textarea -->
+              <textarea
+                [(ngModel)]="comment"
+                rows="4"
+                class="w-full border border-gray-300 rounded-lg p-2 outline-none focus:border-blue-600"
+                placeholder="Write your comment..."
+              ></textarea>
 
-    <!-- Textarea -->
-    <textarea
-      [(ngModel)]="comment"
-      rows="4"
-      class="w-full border border-gray-300 rounded-lg p-2 outline-none focus:border-blue-600"
-      placeholder="Write your comment..."
-    ></textarea>
+              <!-- Action Buttons -->
+              <div class="flex justify-end gap-3 mt-5">
+                <button
+                  (click)="toggleAddReviewModal()"
+                  class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition"
+                >
+                  Cancel
+                </button>
 
-    <!-- Action Buttons -->
-    <div class="flex justify-end gap-3 mt-5">
-      <button
-        (click)="toggleAddReviewModal()"
-        class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 transition">
-        Cancel
-      </button>
-
-      <button
-        (click)="submitReview()"
-        class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">
-        {{isReviewButtonLoading ? 'Submitting...' : 'Submit'}}
-      </button>
-    </div>
-  </div>
-</div>
-           }
-          <span class="px-4 py-2 bg-gray-100 rounded-full text-gray-600 font-bold text-sm">
-            {{reviews.length}}
-            Reviews</span>
+                <button
+                  (click)="submitReview()"
+                  class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+                >
+                  {{ isReviewButtonLoading ? "Submitting..." : "Submit" }}
+                </button>
+              </div>
+            </div>
           </div>
+          }
+          <span
+            class="px-4 py-2 bg-gray-100 rounded-full text-gray-600 font-bold text-sm"
+          >
+            {{ reviews.length }}
+            Reviews</span
+          >
+        </div>
       </div>
 
       <div class="grid grid-cols-1 gap-6">
         @for(review of reviews; track review.id){
         <div
-          class="group p-6 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-100 hover:shadow-lg hover:shadow-gray-200/50 transition-all duration-300">
+          class="group p-6 rounded-2xl bg-gray-50 hover:bg-white border border-transparent hover:border-gray-100 hover:shadow-lg hover:shadow-gray-200/50 transition-all duration-300"
+        >
           <div class="flex items-start gap-4">
             <div
-              class="flex-shrink-0 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-400 border border-gray-200 group-hover:border-blue-200 group-hover:text-blue-500 transition-colors">
+              class="flex-shrink-0 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-400 border border-gray-200 group-hover:border-blue-200 group-hover:text-blue-500 transition-colors"
+            >
               <fa-icon [icon]="faUser" class="text-lg"></fa-icon>
             </div>
             <div class="flex-grow">
               <div class="flex items-center justify-between mb-2">
                 <h4 class="font-bold text-gray-900 text-lg">
-                  {{review.userDto?.firstName}} {{review.userDto?.lastName}}
+                  {{ review.userDto?.firstName }} {{ review.userDto?.lastName }}
                 </h4>
                 <!-- this need work -->
-                <span class="text-sm text-gray-400 font-medium">Verified Purchase</span>
+                <span class="text-sm text-gray-400 font-medium"
+                  >Verified Purchase</span
+                >
               </div>
 
               <div class="flex items-center gap-1 mb-3 text-yellow-400 text-sm">
                 @for(star of [1,2,3,4,5]; track star) {
                 <span [class.text-gray-300]="star > review.rating">★</span>
                 }
-                <span class="ml-2 text-gray-500 font-medium text-xs">{{review.rating}}.0</span>
+                <span class="ml-2 text-gray-500 font-medium text-xs"
+                  >{{ review.rating }}.0</span
+                >
               </div>
 
-              <p class="text-gray-600 leading-relaxed">{{review.content}}</p>
+              <p class="text-gray-600 leading-relaxed">{{ review.content }}</p>
             </div>
           </div>
         </div>
         }@empty {
-        <div class="text-center py-16 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
-          <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400">
+        <div
+          class="text-center py-16 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200"
+        >
+          <div
+            class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-gray-400"
+          >
             <span class="text-2xl">💬</span>
           </div>
           <h3 class="text-lg font-bold text-gray-900 mb-2">No reviews yet</h3>
-          <p class="text-gray-500">Be the first to share your thoughts on this product!</p>
+          <p class="text-gray-500">
+            Be the first to share your thoughts on this product!
+          </p>
         </div>
         }
       </div>
     </div>
-
   </main>
 </div>
 
