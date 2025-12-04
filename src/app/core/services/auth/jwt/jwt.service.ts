@@ -26,6 +26,7 @@ export class JwtService {
     return this.decodeToken()?.sub ?? null;
   }
 
+  /** this will used to show vendor dashboard or admin dashboard */
   getRoleFromToken(): string | null {
     return this.decodeToken()?.role ?? null;
   }
