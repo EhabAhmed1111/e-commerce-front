@@ -1,5 +1,5 @@
 import { Component, effect, signal, Signal } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink, ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { ProductService } from '../../core/services/product/product.service';
 import { ProductsResponse, Products, ProductsForShow, CategoriesResponse, Category } from '../../core/models/data';
@@ -30,11 +30,20 @@ export class ProductComponent {
   /** this will used to add subscribtion to it  */
   private subscription: Subscription = new Subscription();
 
+  
+  constructor(private productService: ProductService, private categoryService: CategoryService,
+     private router: ActivatedRoute) {
+    }
+    
+    ngOnInit() {
+// this.router.snapshot.queryParamMap.get('name');
 
-  constructor(private productService: ProductService, private categoryService: CategoryService) {
-  }
-
-  ngOnInit() {
+// console.log(this.router.snapshot.queryParamMap.get('name'));
+    this.router.queryParamMap.subscribe((params) => {
+      // it get name if its null it will be all 
+      this.category = params.get('name') || 'All';
+    });
+  
     this.loadData();
   }
 
