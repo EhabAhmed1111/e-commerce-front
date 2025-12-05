@@ -30,6 +30,7 @@ export class ProductComponent {
   /** this will used to add subscribtion to it  */
   private subscription: Subscription = new Subscription();
 
+  priceRate: string = "Price";
   
   constructor(private productService: ProductService, private categoryService: CategoryService,
      private router: ActivatedRoute) {
@@ -104,6 +105,7 @@ export class ProductComponent {
     } else {
       this.filteredProducts = [...this.products];
     }
+    this.filteredProducts = this.filterProductsByPriceRate(this.priceRate);
   }
 
   // this stuped search 
@@ -120,16 +122,13 @@ export class ProductComponent {
   onSelectCategoryChange(event: Event) {
     this.category = (event.target as HTMLSelectElement).value;
     this.applyFIlters();
-    /* if there are search text i should filter it 2 time first by category then by search text */
-    // if (this.searchText.length > 0) {
-    //   /* here we apply search text only */
-    //   if (this.category === "All") {
-    //     this.filteredProducts = this.filterProductsBySearchText(this.searchText);
-    //   }
-    //   this.filteredProducts = this.filterProductsByCategoryAndSearchText(this.category, this.searchText);
-    // } else {
-    //   this.filteredProducts = this.filterProductsByCategory(this.category);
-    // }
+ 
+  } 
+  
+  onSelectPriceRateChange(event: Event) {
+    this.priceRate = (event.target as HTMLSelectElement).value;
+    this.applyFIlters();
+ 
   }
 
   private filterProductsByCategory(categoryName: string): ProductsForShow[] {
@@ -137,10 +136,21 @@ export class ProductComponent {
       return product.categoryName === categoryName;
     });
   }
+
   private filterProductsBySearchText(productName: string): ProductsForShow[] {
     return this.products.filter((product: ProductsForShow) => {
       return product.productName.toLowerCase().includes(productName.toLocaleLowerCase());
     });
+  }
+  
+  private filterProductsByPriceRate(priceRate: string): ProductsForShow[] {
+    if (priceRate === "high") {
+      return this.filteredProducts.sort((a, b) => b.price - a.price);
+    }
+    if (priceRate === "low") {
+      return this.filteredProducts.sort((a, b) => a.price - b.price);
+    }
+    return this.filteredProducts;
   }
 
   private filterProductsByCategoryAndSearchText(categoryName: string, productName: string): ProductsForShow[] {
