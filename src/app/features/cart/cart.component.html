@@ -1,0 +1,97 @@
+<div class="min-h-screen bg-gray-50 pt-24 pb-12">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">Shopping Cart</h1>
+        <span class="text-gray-600">{{ cartService.totalItems() }} Items</span>
+      </div>
+
+      <div *ngIf="cartService.cartItems().length === 0" class="bg-white rounded-3xl shadow-sm p-12 text-center">
+        <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
+          <fa-icon [icon]="faArrowLeft" class="text-3xl text-blue-600"></fa-icon>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Your cart is empty</h2>
+        <p class="text-gray-500 mb-8">Looks like you haven't added anything to your cart yet.</p>
+        <a routerLink="/product" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20">
+          Start Shopping
+        </a>
+      </div>
+
+      <div *ngIf="cartService.cartItems().length > 0" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Cart Items List -->
+        <div class="lg:col-span-2 flex flex-col gap-4">
+          <div *ngFor="let item of cartService.cartItems()" class="bg-white rounded-2xl p-4 shadow-sm flex gap-4 sm:gap-6 group transition-all hover:shadow-md">
+            <!-- Image -->
+            <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0 border border-gray-100">
+              <img [src]="item.image" [alt]="item.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 flex flex-col justify-between py-1">
+              <div class="flex justify-between items-start gap-4">
+                <div>
+                  <h3 class="font-bold text-gray-900 text-lg line-clamp-1">{{ item.name }}</h3>
+                  <p class="text-gray-500 text-sm mt-1">Unit Price: ${{ item.price }}</p>
+                </div>
+                <button (click)="cartService.removeFromCart(item.id)" class="text-gray-400 hover:text-red-500 transition-colors p-2 hover:bg-red-50 rounded-lg">
+                  <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+              </div>
+
+              <div class="flex items-center justify-between mt-4">
+                <div class="flex items-center gap-3 bg-gray-50 rounded-xl p-1">
+                  <button (click)="cartService.updateQuantity(item.id, item.quantity - 1)" 
+                    class="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-colors">
+                    <fa-icon [icon]="faMinus" class="text-xs"></fa-icon>
+                  </button>
+                  <span class="font-bold w-8 text-center">{{ item.quantity }}</span>
+                  <button (click)="cartService.updateQuantity(item.id, item.quantity + 1)"
+                    class="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-colors">
+                    <fa-icon [icon]="faPlus" class="text-xs"></fa-icon>
+                  </button>
+                </div>
+                <p class="font-bold text-lg text-blue-600">${{ item.price * item.quantity | number:'1.2-2' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-3xl shadow-sm p-6 sticky top-24">
+            <h2 class="text-xl font-bold text-gray-900 mb-6">Order Summary</h2>
+            
+            <div class="space-y-4 mb-6">
+              <div class="flex justify-between text-gray-600">
+                <span>Subtotal</span>
+                <span class="font-medium">${{ cartService.totalPrice() | number:'1.2-2' }}</span>
+              </div>
+              <div class="flex justify-between text-gray-600">
+                <span>Shipping</span>
+                <span class="text-green-600 font-medium">Free</span>
+              </div>
+              <div class="flex justify-between text-gray-600">
+                <span>Tax</span>
+                <span class="font-medium">$0.00</span>
+              </div>
+              <div class="h-px bg-gray-100 my-4"></div>
+              <div class="flex justify-between text-lg font-bold text-gray-900">
+                <span>Total</span>
+                <span>${{ cartService.totalPrice() | number:'1.2-2' }}</span>
+              </div>
+            </div>
+
+            <button class="w-full py-4 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 active:scale-95 transition-all shadow-lg shadow-blue-600/20 mb-4">
+              Proceed to Checkout
+            </button>
+            
+            <a routerLink="/product" class="block text-center text-gray-500 hover:text-blue-600 font-medium text-sm transition-colors">
+              Continue Shopping
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
