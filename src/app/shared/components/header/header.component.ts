@@ -1,9 +1,10 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { CartService } from '../../../core/services/cart/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -12,20 +13,15 @@ import { faCartShopping, faBars, faTimes } from '@fortawesome/free-solid-svg-ico
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  cartService = inject(CartService);
+  
   faCartIcon = faCartShopping;
   faBarsIcon = faBars;
   faTimesIcon = faTimes;
 
   isMenuOpen = false;
-  /**todo 
-   * here i need to get back end api to get cart item count
-   * but first i need to login and signup api first 
-   */
+
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
-
   } 
-  
-
-
 }

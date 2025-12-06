@@ -1,7 +1,7 @@
 <header
-  class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300">
-  <div class="container mx-auto px-4 lg:px-8">
-    <div class="flex items-center justify-between h-16 lg:h-20">
+  class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm transition-all duration-300 px-2 md:px-0">
+  <div class="container mx-auto">
+    <div class="flex items-center justify-between h-16 lg:h-20 relative">
 
       <!-- Logo -->
       <a routerLink="/" class="flex items-center gap-2 group">
@@ -27,11 +27,12 @@
       <!-- Right Actions (Cart & Auth) -->
       <div class="hidden lg:flex items-center gap-4">
         <!-- Cart -->
-        <a routerLink="/cart" class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors group">
+        <!-- Cart -->
+        <a routerLink="/cart" class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors focus:outline-none">
           <fa-icon [icon]="faCartIcon" class="text-xl"></fa-icon>
-          <span
+          <span *ngIf="cartService.totalItems() > 0"
             class="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-500 rounded-full shadow-sm group-hover:scale-110 transition-transform">
-            1
+            {{ cartService.totalItems() }}
           </span>
         </a>
 
@@ -47,6 +48,8 @@
         class="lg:hidden p-2 text-gray-600 hover:text-blue-600 hover:bg-gray-100 rounded-lg transition-colors focus:outline-none">
         <fa-icon [icon]="isMenuOpen ? faTimesIcon : faBarsIcon" class="text-xl"></fa-icon>
       </button>
+
+
     </div>
   </div>
 
@@ -67,7 +70,7 @@
         class="px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-50 transition-colors flex items-center justify-between">
         <span>Cart</span>
         <div class="flex items-center gap-2">
-          <span class="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">1 Item</span>
+          <span class="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">{{ cartService.totalItems() }} Item{{ cartService.totalItems() !== 1 ? 's' : '' }}</span>
           <fa-icon [icon]="faCartIcon"></fa-icon>
         </div>
       </a>
