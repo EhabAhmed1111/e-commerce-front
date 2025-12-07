@@ -12,14 +12,15 @@ import { ReviewsService } from '../../core/services/reviews/reviews.service';
 import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgClass } from '@angular/common';
 import { JwtService } from '../../core/services/auth/jwt/jwt.service';
+import { CartService } from '../../core/services/cart/cart.service';
 
 @Component({
   selector: 'app-product-details',
-  imports: [RouterLink, FaIconComponent, HeaderComponent, FooterComponent, FormsModule, NgFor, NgClass],
+  imports: [RouterLink, FaIconComponent, HeaderComponent, FooterComponent, FormsModule, NgFor, NgClass, FormsModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
   /* for using custom element tags */
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  // schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductDetailsComponent {
 
@@ -35,10 +36,10 @@ productId: string = '';
 review: Review = {} as Review;
 isReviewButtonLoading: boolean = false;
 areYouOwner: boolean = false;
+quantity = 0;
 
 
-
-  constructor(private router: ActivatedRoute, private productService: ProductService, private reviewService: ReviewsService, private jwtService: JwtService) { }
+  constructor(private router: ActivatedRoute, private productService: ProductService, private reviewService: ReviewsService, private jwtService: JwtService, private cartService: CartService) { }
   // here we will make api req and we will remove the var we make it direct
   ngOnInit() {
     this.router.paramMap.subscribe((params) => {
@@ -101,4 +102,12 @@ setRating(rating: number) {
 
 
   /**todo finsish this entire screen  */
+
+
+  addToCart(productId: string, qunatity: number) {
+      this.cartService.addToCart(productId, qunatity).subscribe((cart) => {
+        console.log(cart);
+      })
+      
+  }
 }

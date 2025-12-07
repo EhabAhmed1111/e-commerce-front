@@ -21,10 +21,13 @@ export interface Products {
   amount: number,
   description: string,
   categoryName: string,
-  medias: Media[]
-  vendor: User
+  medias: Media[],
+  vendor: User,
   avgRate: number | null
 }
+
+
+
 
 export interface ProductsForShow {
   id: string,
@@ -150,4 +153,45 @@ export interface DecodedToken {
   // expire time
   exp: number;
   [key: string]: any;
+}
+
+// cart
+export interface CartResponse {
+  message: string,
+  data: Cart
+}
+
+export interface Cart {
+  id: string,
+  isActive: boolean,
+  totalPrice: number,
+  updatedAt: Date,
+  createdAt: Date,
+  cartItemsDto: CartItemDto[],
+}
+
+export interface CartItemDto {
+  id: string,
+  unitePrice: number,
+  totalPrice: number,
+  updatedAt: Date,
+  createdAt: Date,
+  quantity: number,
+  productResponse: ProductsForCart
+}
+
+
+
+export interface ProductsForCart {
+  id: string,
+  productName: string,
+  price: number,
+  brand: string,
+  amount: number,
+  description: string,
+  categoryName: string,
+  vendor: User,
+  medias: Media[],
+  avgRate: number | null,
+  thumbnail: string | null
 }
