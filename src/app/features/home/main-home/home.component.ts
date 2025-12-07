@@ -12,5 +12,4 @@ import { HeroBannerComponent } from '../hero-banner/hero-banner.component';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-
 }
