@@ -4,10 +4,10 @@
       <!-- Header -->
       <div class="flex items-center justify-between mb-8">
         <h1 class="text-3xl font-bold text-gray-900">Shopping Cart</h1>
-        <span class="text-gray-600">{{ cartService.totalItems() }} Items</span>
+        <span class="text-gray-600">{{ totalCartItems$ | async}} Items</span>
       </div>
 
-      <div *ngIf="cartService.cartItems().length === 0" class="bg-white rounded-3xl shadow-sm p-12 text-center">
+      <div *ngIf="(totalCartItems$ | async) === 0" class="bg-white rounded-3xl shadow-sm p-12 text-center">
         <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
           <fa-icon [icon]="faArrowLeft" class="text-3xl text-blue-600"></fa-icon>
         </div>
@@ -18,40 +18,40 @@
         </a>
       </div>
 
-      <div *ngIf="cartService.cartItems().length > 0" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div *ngIf="totalCartItems$ | async" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Cart Items List -->
         <div class="lg:col-span-2 flex flex-col gap-4">
-          <div *ngFor="let item of cartService.cartItems()" class="bg-white rounded-2xl p-4 shadow-sm flex gap-4 sm:gap-6 group transition-all hover:shadow-md">
+          <div *ngFor="let item of cart.cartItemsDto" class="bg-white rounded-2xl p-4 shadow-sm flex gap-4 sm:gap-6 group transition-all hover:shadow-md">
             <!-- Image -->
             <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0 border border-gray-100">
-              <img [src]="item.image" [alt]="item.name" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+              <img [src]="item.productResponse.thumbnail" [alt]="item.productResponse.productName" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
             </div>
 
             <!-- Content -->
             <div class="flex-1 flex flex-col justify-between py-1">
               <div class="flex justify-between items-start gap-4">
                 <div>
-                  <h3 class="font-bold text-gray-900 text-lg line-clamp-1">{{ item.name }}</h3>
-                  <p class="text-gray-500 text-sm mt-1">Unit Price: ${{ item.price }}</p>
+                  <h3 class="font-bold text-gray-900 text-lg line-clamp-1">{{ item.productResponse.productName }}</h3>
+                  <p class="text-gray-500 text-sm mt-1">Unit Price: ${{ item.productResponse.price }}</p>
                 </div>
-                <button (click)="cartService.removeFromCart(item.id)" class="text-gray-400 hover:text-red-500 transition-colors p-2 hover:bg-red-50 rounded-lg">
+                <button (click)="removeFromCart(item.id)" class="text-gray-400 hover:text-red-500 transition-colors p-2 hover:bg-red-50 rounded-lg">
                   <fa-icon [icon]="faTrash"></fa-icon>
                 </button>
               </div>
 
               <div class="flex items-center justify-between mt-4">
                 <div class="flex items-center gap-3 bg-gray-50 rounded-xl p-1">
-                  <button (click)="cartService.updateQuantity(item.id, item.quantity - 1)" 
+                  <button (click)="updateQuantity(item.id, item.quantity - 1)" 
                     class="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-colors">
                     <fa-icon [icon]="faMinus" class="text-xs"></fa-icon>
                   </button>
                   <span class="font-bold w-8 text-center">{{ item.quantity }}</span>
-                  <button (click)="cartService.updateQuantity(item.id, item.quantity + 1)"
+                  <button (click)="updateQuantity(item.id, item.quantity + 1)"
                     class="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-colors">
                     <fa-icon [icon]="faPlus" class="text-xs"></fa-icon>
                   </button>
                 </div>
-                <p class="font-bold text-lg text-blue-600">${{ item.price * item.quantity | number:'1.2-2' }}</p>
+                <p class="font-bold text-lg text-blue-600">${{ item.productResponse.price * item.quantity | number:'1.2-2' }}</p>
               </div>
             </div>
           </div>
@@ -65,7 +65,7 @@
             <div class="space-y-4 mb-6">
               <div class="flex justify-between text-gray-600">
                 <span>Subtotal</span>
-                <span class="font-medium">${{ cartService.totalPrice() | number:'1.2-2' }}</span>
+                <span class="font-medium">${{ cart.totalPrice | number:'1.2-2' }}</span>
               </div>
               <div class="flex justify-between text-gray-600">
                 <span>Shipping</span>
@@ -78,7 +78,7 @@
               <div class="h-px bg-gray-100 my-4"></div>
               <div class="flex justify-between text-lg font-bold text-gray-900">
                 <span>Total</span>
-                <span>${{ cartService.totalPrice() | number:'1.2-2' }}</span>
+                <span>${{ cart.totalPrice | number:'1.2-2' }}</span>
               </div>
             </div>
 
