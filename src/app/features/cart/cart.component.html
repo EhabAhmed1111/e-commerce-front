@@ -4,10 +4,10 @@
       <!-- Header -->
       <div class="flex items-center justify-between mb-8">
         <h1 class="text-3xl font-bold text-gray-900">Shopping Cart</h1>
-        <span class="text-gray-600">{{ totalCartItems$ | async}} Items</span>
+        <span class="text-gray-600">{{ totalCartItems$ }} Items</span>
       </div>
 
-      <div *ngIf="(totalCartItems$ | async) === 0" class="bg-white rounded-3xl shadow-sm p-12 text-center">
+      <div *ngIf="totalCartItems$ === 0" class="bg-white rounded-3xl shadow-sm p-12 text-center">
         <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
           <fa-icon [icon]="faArrowLeft" class="text-3xl text-blue-600"></fa-icon>
         </div>
@@ -18,7 +18,7 @@
         </a>
       </div>
 
-      <div *ngIf="totalCartItems$ | async" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div *ngIf="totalCartItems$" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Cart Items List -->
         <div class="lg:col-span-2 flex flex-col gap-4">
           <div *ngFor="let item of cart.cartItemsDto" class="bg-white rounded-2xl p-4 shadow-sm flex gap-4 sm:gap-6 group transition-all hover:shadow-md">

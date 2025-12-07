@@ -18,6 +18,7 @@ import {
   NgSwitchDefault,
 } from '@angular/common';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { CartService } from './core/services/cart/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -39,7 +40,14 @@ import { HeaderComponent } from './shared/components/header/header.component';
 })
 export class AppComponent {
 
+  constructor(private cartService: CartService) {}
 
+ngOnInit() {
+  this.cartService.getCart().subscribe(() => {
+    console.log("fetch");
+    
+  });
+}
 }
 
 

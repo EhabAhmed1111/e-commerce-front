@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -15,11 +15,12 @@ import {
   Products,
   ProductsForVendorForShow,
 } from '../../core/models/data';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink, FontAwesomeModule, AsyncPipe],
+  imports: [CommonModule, RouterLink, FontAwesomeModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
@@ -32,7 +33,15 @@ export class CartComponent {
   faArrowLeft = faArrowLeft;
   cart: Cart = {} as Cart;
   // product: ProductsForVendorForShow = {} as ProductsForVendorForShow;
-  totalCartItems$ = this.cartService.getTotalQuantity();
+  // totalCartItems$ = this.cartService.getTotalQuantity();
+  totalCartItems$!:number;
+
+constructor() {
+  effect(() => {
+    this.totalCartItems$ = this.cartService.cartItemQuantity$();
+  })
+}
+
   ngOnInit() {
     this.cartService.getCart().subscribe((cart: CartResponse) => {
       this.cart = cart.data;
