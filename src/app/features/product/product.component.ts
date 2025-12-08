@@ -2,7 +2,7 @@ import { Component, effect, signal, Signal } from '@angular/core';
 import { RouterOutlet, RouterLink, ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { ProductService } from '../../core/services/product/product.service';
-import { ProductsResponse, Products, ProductsForShow, CategoriesResponse, Category } from '../../core/models/data';
+import { ProductsResponse, Products, ProductsForShow, CategoriesResponse, Category, WishlistResponse } from '../../core/models/data';
 import { CategoryService } from '../../core/services/category/category.service';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, forkJoin, Subject, Subscription } from 'rxjs';
@@ -16,6 +16,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
   styleUrl: './product.component.scss',
 })
 export class ProductComponent {
+
   /*---- this will not be modified -----*/
   products: ProductsForShow[] = [];
   filteredProducts: ProductsForShow[] = [];
@@ -158,6 +159,9 @@ export class ProductComponent {
       return product.categoryName === categoryName && product.productName.toLowerCase().includes(productName.toLocaleLowerCase());
     });
   }
+
+
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

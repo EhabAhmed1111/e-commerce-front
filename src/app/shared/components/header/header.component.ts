@@ -3,7 +3,7 @@ import { Component, computed, effect, inject, OnInit, Signal } from '@angular/co
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faCartShopping, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faBars, faTimes, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { CartService } from '../../../core/services/cart/cart.service';
 import { CartResponse } from '../../../core/models/data';
 
@@ -16,6 +16,7 @@ import { CartResponse } from '../../../core/models/data';
 export class HeaderComponent{
   cartService = inject(CartService);
   
+  faHeart = faHeart;
   faCartIcon = faCartShopping;
   faBarsIcon = faBars;
   faTimesIcon = faTimes;

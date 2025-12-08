@@ -1,14 +1,23 @@
+<app-header></app-header>
+
 <div class="min-h-screen bg-gray-50 pt-24 pb-12">
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      
       <!-- Header -->
       <div class="flex items-center justify-between mb-8">
-        <h1 class="text-3xl font-bold text-gray-900">Shopping Cart</h1>
-        <button (click)="clearCart()" class="px-4 py-2 rounded-full bg-red-600 text-white font-semibold hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20">Clear All</button>
-        <span class="text-gray-600">{{ totalCartItems$ }} Items</span>
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Shopping Cart</h1>
+          <p class="text-gray-500 mt-1">{{ totalCartItems$ }} items in your cart</p>
+        </div>
+        <button *ngIf="totalCartItems$ > 0" (click)="clearCart()" class="px-5 py-2.5 rounded-xl bg-red-50 text-red-600 font-medium hover:bg-red-100 hover:text-red-700 transition-colors flex items-center gap-2">
+          <fa-icon [icon]="faTrash"></fa-icon>
+          Clear Cart
+        </button>
       </div>
 
-      <div *ngIf="totalCartItems$ === 0" class="bg-white rounded-3xl shadow-sm p-12 text-center">
+      <!-- Empty State -->
+      <div *ngIf="totalCartItems$ === 0" class="bg-white rounded-3xl shadow-sm border border-gray-100 p-16 text-center max-w-2xl mx-auto">
         <div class="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
           <fa-icon [icon]="faArrowLeft" class="text-3xl text-blue-600"></fa-icon>
         </div>
@@ -19,81 +28,113 @@
         </a>
       </div>
 
-      <div *ngIf="totalCartItems$" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Cart Content -->
+      <div *ngIf="totalCartItems$ > 0" class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
         <!-- Cart Items List -->
-        <div class="lg:col-span-2 flex flex-col gap-4">
-          <div *ngFor="let item of cartItemsDto" class="bg-white rounded-2xl p-4 shadow-sm flex gap-4 sm:gap-6 group transition-all hover:shadow-md">
+        <div class="lg:col-span-8 flex flex-col gap-4">
+          <div *ngFor="let item of cartItemsDto" class="bg-white rounded-2xl p-4 sm:p-6 shadow-sm border border-gray-100 flex flex-col sm:flex-row gap-6 group transition-all hover:shadow-md">
+            
             <!-- Image -->
-            <div class="w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0 border border-gray-100">
+            <div class="w-full sm:w-32 h-32 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0 border border-gray-100 relative">
               <img [src]="item.productResponse.thumbnail" [alt]="item.productResponse.productName" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
             </div>
 
             <!-- Content -->
-            <div class="flex-1 flex flex-col justify-between py-1">
+            <div class="flex-1 flex flex-col justify-between">
               <div class="flex justify-between items-start gap-4">
                 <div>
-                  <h3 class="font-bold text-gray-900 text-lg line-clamp-1">{{ item.productResponse.productName }}</h3>
-                  <p class="text-gray-500 text-sm mt-1">Unit Price: ${{ item.productResponse.price }}</p>
+                  <h3 class="font-bold text-gray-900 text-lg line-clamp-1 hover:text-blue-600 transition-colors cursor-pointer" routerLink="/product/{{item.productResponse.id}}">{{ item.productResponse.productName }}</h3>
+                  <p class="text-gray-500 text-sm mt-1">Unit Price: <span class="font-medium text-gray-900">${{ item.productResponse.price }}</span></p>
+                  <p class="text-xs text-gray-400 mt-1 uppercase tracking-wide">{{ item.productResponse.categoryName }}</p>
                 </div>
-                <button (click)="removeFromCart(item.id)" class="text-gray-400 hover:text-red-500 transition-colors p-2 hover:bg-red-50 rounded-lg">
+                <button (click)="removeFromCart(item.id)" class="text-gray-400 hover:text-red-500 transition-colors p-2 hover:bg-red-50 rounded-lg" title="Remove item">
                   <fa-icon [icon]="faTrash"></fa-icon>
                 </button>
               </div>
 
-              <div class="flex items-center justify-between mt-4">
-                <div class="flex items-center gap-3 bg-gray-50 rounded-xl p-1">
+              <div class="flex items-center justify-between mt-6 sm:mt-0">
+                <!-- Quantity Controls -->
+                <div class="flex items-center gap-3 bg-gray-50 rounded-xl p-1 border border-gray-100">
                   <button (click)="decrementQuantity(item)" 
-                    class="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-colors">
+                    class="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    [disabled]="item.quantity <= 1">
                     <fa-icon [icon]="faMinus" class="text-xs"></fa-icon>
                   </button>
-                  <span class="font-bold w-8 text-center">{{ item.quantity }}</span>
+                  <span class="font-bold w-8 text-center text-gray-900">{{ item.quantity }}</span>
                   <button (click)="incrementQuantity(item)"
-                    class="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-colors">
+                    class="w-8 h-8 flex items-center justify-center rounded-lg bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    [disabled]="item.quantity >= item.productResponse.amount">
                     <fa-icon [icon]="faPlus" class="text-xs"></fa-icon>
                   </button>
-                  <button class="w-24 h-8 flex items-center justify-center rounded-lg bg-white text-gray-600 hover:text-blue-600 shadow-sm transition-colors" (click)="updateQuantity(item.productResponse.id, item)"> Update</button>
+                  <button class="text-semibold" (click)="updateQuantity(item.productResponse.id, item)">Update</button>
                 </div>
-                <p class="font-bold text-lg text-blue-600">${{ item.productResponse.price * item.quantity | number:'1.2-2' }}</p>
+
+
+                <!-- Total Price -->
+                <p class="font-bold text-xl text-blue-600">${{ item.productResponse.price * item.quantity | number:'1.2-2' }}</p>
+              </div>
+              
+              <!-- Mobile Update Trigger (Optional: if logic requires explicit update) -->
+              <!-- Assuming updateQuantity is called automatically or we can add a button if needed. 
+                   The previous code had a visible "Update" button. I'll make it cleaner. -->
+              <div class="mt-2 flex justify-end sm:hidden">
+                 <button (click)="updateQuantity(item.productResponse.id, item)" class="text-sm text-blue-600 font-medium hover:underline">Update Quantity</button>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Order Summary -->
-        <div class="lg:col-span-1">
-          <div class="bg-white rounded-3xl shadow-sm p-6 sticky top-24">
+        <div class="lg:col-span-4">
+          <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6 sticky top-24">
             <h2 class="text-xl font-bold text-gray-900 mb-6">Order Summary</h2>
             
             <div class="space-y-4 mb-6">
               <div class="flex justify-between text-gray-600">
                 <span>Subtotal</span>
-                <span class="font-medium">${{ cart.totalPrice | number:'1.2-2' }}</span>
+                <span class="font-medium text-gray-900">${{ cart.totalPrice | number:'1.2-2' }}</span>
               </div>
               <div class="flex justify-between text-gray-600">
                 <span>Shipping</span>
-                <span class="text-green-600 font-medium">Free</span>
+                <span class="text-green-600 font-medium bg-green-50 px-2 py-1 rounded-md text-sm">Free</span>
               </div>
               <div class="flex justify-between text-gray-600">
                 <span>Tax</span>
-                <span class="font-medium">$0.00</span>
+                <span class="font-medium text-gray-900">$0.00</span>
               </div>
               <div class="h-px bg-gray-100 my-4"></div>
-              <div class="flex justify-between text-lg font-bold text-gray-900">
-                <span>Total</span>
-                <span>${{ cart.totalPrice | number:'1.2-2' }}</span>
+              <div class="flex justify-between items-end">
+                <span class="text-lg font-bold text-gray-900">Total</span>
+                <div class="text-right">
+                  <span class="block text-2xl font-bold text-blue-600">${{ cart.totalPrice | number:'1.2-2' }}</span>
+                  <span class="text-xs text-gray-400">Including VAT</span>
+                </div>
               </div>
             </div>
 
-            <button class="w-full py-4 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 active:scale-95 transition-all shadow-lg shadow-blue-600/20 mb-4">
+            <button class="w-full py-4 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 active:scale-95 transition-all shadow-lg shadow-blue-600/20 mb-4 flex items-center justify-center gap-2">
               Proceed to Checkout
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
             </button>
             
             <a routerLink="/product" class="block text-center text-gray-500 hover:text-blue-600 font-medium text-sm transition-colors">
               Continue Shopping
             </a>
+            
+            <!-- Secure Checkout Badge -->
+            <div class="mt-6 flex items-center justify-center gap-2 text-xs text-gray-400 bg-gray-50 py-2 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+              </svg>
+              Secure Checkout
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+

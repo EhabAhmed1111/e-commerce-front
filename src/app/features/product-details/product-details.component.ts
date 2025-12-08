@@ -1,9 +1,9 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ProductService } from '../../core/services/product/product.service';
-import { Products, ProductsForVendorForShow, ProductsForVendorResponse, Review, ReviewResponse, ReviewResponseForAddReview, SingleProductResponse } from '../../core/models/data';
+import { Products, ProductsForVendorForShow, ProductsForVendorResponse, Review, ReviewResponse, ReviewResponseForAddReview, SingleProductResponse, WishlistResponse, WishlistResponseForCheck } from '../../core/models/data';
 import { find } from 'rxjs';
-import { faStar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faStar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from "@fortawesome/angular-fontawesome";
 
 import { HeaderComponent } from '../../shared/components/header/header.component';
@@ -13,6 +13,7 @@ import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgClass } from '@angular/common';
 import { JwtService } from '../../core/services/auth/jwt/jwt.service';
 import { CartService } from '../../core/services/cart/cart.service';
+import { WishlistService } from '../../core/services/wishlist/wishlist.service';
 
 @Component({
   selector: 'app-product-details',
@@ -23,7 +24,7 @@ import { CartService } from '../../core/services/cart/cart.service';
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class ProductDetailsComponent {
-
+  faHeart = faHeart;
   product: Products = {} as Products;
   products: ProductsForVendorForShow[] = [];
   selectedImage: string = '';
@@ -37,9 +38,12 @@ review: Review = {} as Review;
 isReviewButtonLoading: boolean = false;
 areYouOwner: boolean = false;
 quantity = 0;
+isFavorite = signal(false);
 
 
-  constructor(private router: ActivatedRoute, private productService: ProductService, private reviewService: ReviewsService, private jwtService: JwtService, private cartService: CartService) { }
+  constructor(private router: ActivatedRoute, private productService: ProductService, private reviewService: ReviewsService, private jwtService: JwtService, private cartService: CartService,
+    private wishlistService: WishlistService
+  ) { }
   // here we will make api req and we will remove the var we make it direct
   ngOnInit() {
     this.router.paramMap.subscribe((params) => {
@@ -65,6 +69,14 @@ quantity = 0;
       this.reviewService.getReviews(params.get('id')!).subscribe((ReviewResponse: ReviewResponse) => {
         this.reviews = ReviewResponse.data;
         console.log('Reviews data:', this.reviews);
+      })
+
+      this.wishlistService.checkIsFavorite(params.get('id')!).subscribe((response: WishlistResponseForCheck) => {
+        console.log(response.data);
+        
+        this.isFavorite.set(response.data);
+        console.log(this.isFavorite());
+        
       })
     });
 
@@ -109,5 +121,30 @@ setRating(rating: number) {
         console.log(cart);
       })
       
+  }
+
+
+  favoriteButtonOnClick(productId: string) {
+    console.log(this.isFavorite());
+    
+    if(this.isFavorite()) {
+      this.removeFromWishlist(productId);
+    } else {
+      this.addToWishlist(productId);
+    }
+  }
+
+    addToWishlist(productId: string) {
+    this.wishlistService.addToWishlist(productId).subscribe((response: WishlistResponse) => {
+      console.log(response.data.count);
+      this.isFavorite.set(true);
+    })
+  }
+
+  removeFromWishlist(productId: string) {
+    this.wishlistService.removeFromWishlist(productId).subscribe((response: WishlistResponse) => {
+      console.log(response.data.count);
+      this.isFavorite.set(false);
+    })
   }
 }
