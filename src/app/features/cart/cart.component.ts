@@ -11,6 +11,7 @@ import {
 import { CartService } from '../../core/services/cart/cart.service';
 import {
   Cart,
+  CartItemDto,
   CartResponse,
   Products,
   ProductsForVendorForShow,
@@ -32,37 +33,70 @@ export class CartComponent {
   faMinus = faMinus;
   faArrowLeft = faArrowLeft;
   cart: Cart = {} as Cart;
+
+  cartItemsDto: CartItemDto[] = [];
   // product: ProductsForVendorForShow = {} as ProductsForVendorForShow;
   // totalCartItems$ = this.cartService.getTotalQuantity();
-  totalCartItems$!:number;
+  totalCartItems$!: number;
 
-constructor() {
-  effect(() => {
-    this.totalCartItems$ = this.cartService.cartItemQuantity$();
-  })
-}
+  constructor() {
+    effect(() => {
+      this.totalCartItems$ = this.cartService.cartItemQuantity$();
+    });
+  }
 
   ngOnInit() {
+    this.loadCart();
+  }
+
+ private loadCart() {
     this.cartService.getCart().subscribe((cart: CartResponse) => {
       this.cart = cart.data;
+      this.cartItemsDto = cart.data.cartItemsDto;
       this.cart.cartItemsDto = this.cart.cartItemsDto.map((item) => ({
         ...item,
         productResponse: {
           ...item.productResponse,
           thumbnail:
             item.productResponse.medias.find((media) => media.coverImage)
-              ?.url ??
-            'https://res.cloudinary.com/dpc0ohu0g/image/upload/v1763827794/ecommerce/products/images/1c9d41ad-1beb-4b11-b089-02c4c44b8a17.png',
+              ?.url ?? 'https://res.cloudinary.com/dpc0ohu0g/image/upload/v1763827794/ecommerce/products/images/1c9d41ad-1beb-4b11-b089-02c4c44b8a17.png',
         },
       }));
     });
   }
 
   removeFromCart(itemId: string) {
-   
+    this.cartService.removeCartItemFromCart(itemId).subscribe(() => {
+      this.loadCart();
+    });
   }
 
-  updateQuantity(itemId: string, quantity: number) {
+  updateQuantity(productId: string, item: CartItemDto) {
+    console.log(item.quantity);
     
+    this.cartService.updateQuantityOfItem(productId, item.quantity).subscribe(() => {
+      this.loadCart();
+    });
+  }
+  clearCart() {
+// todo in future
+console.log("will impl soon");
+
+  }
+
+  incrementQuantity(item: CartItemDto) { 
+    // can't exceed the amount
+    if(item.quantity === item.productResponse.amount){
+    return item.quantity;  
+    }
+    return item.quantity++;
+  }
+
+  decrementQuantity(item: CartItemDto) {
+    // stop on 1
+    if(item.quantity === 1){
+      return item.quantity;
+    }
+    return item.quantity--;
   }
 }

@@ -75,10 +75,90 @@ cartItemQuantity$ = computed(() => this.cartItem().reduce((total, item) => total
         this.cartItem.set(items);
       })
     );
+  } 
+  
+  updateQuantityOfItem(productId: string, quantity: number): Observable<CartResponse> {
+    const url = 'http://localhost:8080/api/v1/carts';
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    const params = { quantity };
+    return this.http.put<CartResponse>(`${url}/products/${productId}`, {}, {
+      headers,
+      params,
+    }).pipe(
+      /* here we update signal to effect in global state */ 
+      tap((cart) => {
+        const items: CartItemDto[] = cart.data.cartItemsDto.map((item) => ({
+          id: item.id,
+          unitePrice: item.unitePrice,
+          totalPrice: item.totalPrice,
+          updatedAt: item.updatedAt,
+          createdAt: item.createdAt,
+          quantity: item.quantity,
+          productResponse: item.productResponse
+        }));
+        this.cartItem.set(items);
+      })
+    );
+  }  
+  
+  removeCartItemFromCart(cartItemId: string): Observable<CartResponse> {
+    const url = 'http://localhost:8080/api/v1/carts';
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    return this.http.delete<CartResponse>(`${url}/cart-items/${cartItemId}`, {
+      headers,
+    }).pipe(
+      /* here we update signal to effect in global state */ 
+      tap((cart) => {
+        const items: CartItemDto[] = cart.data.cartItemsDto.map((item) => ({
+          id: item.id,
+          unitePrice: item.unitePrice,
+          totalPrice: item.totalPrice,
+          updatedAt: item.updatedAt,
+          createdAt: item.createdAt,
+          quantity: item.quantity,
+          productResponse: item.productResponse
+        }));
+        this.cartItem.set(items);
+      })
+    );
   }
 
-  getTotalQuantity() {
-  this.getCart();
-  }
+  /* when i need it i will implement it */
+  // removeCart(): Observable<CartResponse> {
+  //   const url = 'http://localhost:8080/api/v1/carts';
+  //   const headers = {
+  //     'Content-Type': 'application/json',
+  //     Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //   };
+  //   return this.http.delete<CartResponse>(`${url}/cart-items/${cartItemId}`, {
+  //     headers,
+  //   }).pipe(
+  //     /* here we update signal to effect in global state */ 
+  //     tap((cart) => {
+  //       const items: CartItemDto[] = cart.data.cartItemsDto.map((item) => ({
+  //         id: item.id,
+  //         unitePrice: item.unitePrice,
+  //         totalPrice: item.totalPrice,
+  //         updatedAt: item.updatedAt,
+  //         createdAt: item.createdAt,
+  //         quantity: item.quantity,
+  //         productResponse: item.productResponse
+  //       }));
+  //       this.cartItem.set(items);
+  //     })
+  //   );
+  // }
+
+
+
+  // getTotalQuantity() {
+  // this.getCart();
+  // }
 
 }
