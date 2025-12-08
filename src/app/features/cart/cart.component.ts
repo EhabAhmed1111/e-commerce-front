@@ -17,11 +17,12 @@ import {
   ProductsForVendorForShow,
 } from '../../core/models/data';
 import { map, Observable } from 'rxjs';
+import { HeaderComponent } from '../../shared/components/header/header.component';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink, FontAwesomeModule],
+  imports: [CommonModule, RouterLink, FontAwesomeModule, HeaderComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
@@ -53,7 +54,7 @@ export class CartComponent {
     this.cartService.getCart().subscribe((cart: CartResponse) => {
       this.cart = cart.data;
       this.cartItemsDto = cart.data.cartItemsDto;
-      this.cart.cartItemsDto = this.cart.cartItemsDto.map((item) => ({
+      this.cartItemsDto = this.cart.cartItemsDto.map((item) => ({
         ...item,
         productResponse: {
           ...item.productResponse,

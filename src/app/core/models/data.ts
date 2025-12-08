@@ -195,3 +195,21 @@ export interface ProductsForCart {
   avgRate: number | null,
   thumbnail: string | null
 }
+
+
+/** wishlist */
+
+export interface WishlistResponse {
+  message: string,
+  data: Wishlist
+}
+
+export interface WishlistResponseForCheck {
+  message: string,
+  data: boolean
+}
+
+export interface Wishlist {
+  count: number,
+  productResponseSet: ProductsForCart[]
+}

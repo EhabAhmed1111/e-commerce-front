@@ -26,9 +26,16 @@
 
       <!-- Right Actions (Cart & Auth) -->
       <div class="hidden lg:flex items-center gap-4">
-        <!-- Cart -->
-        <!-- Cart -->
-        <a routerLink="/cart" class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors focus:outline-none">
+        <a routerLink="/wishlist" routerLinkActive="!text-blue-600 font-semibold bg-blue-50" class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors focus:outline-none">
+          <fa-icon [icon]="faHeart" class="text-xl"></fa-icon>
+          <!-- <span *ngIf="count"
+          class="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-500 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+          {{ count }}
+        </span> -->
+      </a>
+      <!-- Cart -->
+        <a routerLink="/cart" class="relative p-2 text-gray-600 hover:text-blue-600 transition-colors focus:outline-none" routerLinkActive="!text-blue-600 font-semibold bg-blue-50"
+        >
           <fa-icon [icon]="faCartIcon" class="text-xl"></fa-icon>
           <span *ngIf="count"
             class="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-red-500 rounded-full shadow-sm group-hover:scale-110 transition-transform">
