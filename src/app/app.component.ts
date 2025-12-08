@@ -45,7 +45,6 @@ export class AppComponent {
 ngOnInit() {
   this.cartService.getCart().subscribe(() => {
     console.log("fetch");
-    
   });
 }
 }
