@@ -213,3 +213,19 @@ export interface Wishlist {
   count: number,
   productResponseSet: ProductsForCart[]
 }
+
+
+export interface OrderResponse {
+  message: string,
+  data: OrderResponseData
+}
+
+export interface OrderResponseData{
+id: string,
+totalPrice: number,
+createdAt: Date,
+updatedAt: Date,
+user: User,
+orderItems: CartItemDto[],
+clientSecret: string
+}

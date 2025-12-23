@@ -18,11 +18,13 @@ import {
 } from '../../core/models/data';
 import { map, Observable } from 'rxjs';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { OrderService } from '../../core/services/order/order.service';
+import { PaymentFormComponent } from '../payment/payment-form/payment-form.component';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink, FontAwesomeModule, HeaderComponent],
+  imports: [CommonModule, RouterLink, FontAwesomeModule, HeaderComponent, PaymentFormComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })
@@ -40,7 +42,12 @@ export class CartComponent {
   // totalCartItems$ = this.cartService.getTotalQuantity();
   totalCartItems$!: number;
 
-  constructor() {
+  clientSecret: string = '';
+
+  // isPaymentHidden: boolean = true;
+  isPaymentPopupVisible: boolean = false;
+  
+  constructor(private orderService: OrderService) {
     effect(() => {
       this.totalCartItems$ = this.cartService.cartItemQuantity$();
     });
@@ -50,7 +57,7 @@ export class CartComponent {
     this.loadCart();
   }
 
- private loadCart() {
+  private loadCart() {
     this.cartService.getCart().subscribe((cart: CartResponse) => {
       this.cart = cart.data;
       this.cartItemsDto = cart.data.cartItemsDto;
@@ -60,7 +67,8 @@ export class CartComponent {
           ...item.productResponse,
           thumbnail:
             item.productResponse.medias.find((media) => media.coverImage)
-              ?.url ?? 'https://res.cloudinary.com/dpc0ohu0g/image/upload/v1763827794/ecommerce/products/images/1c9d41ad-1beb-4b11-b089-02c4c44b8a17.png',
+              ?.url ??
+            'https://res.cloudinary.com/dpc0ohu0g/image/upload/v1763827794/ecommerce/products/images/1c9d41ad-1beb-4b11-b089-02c4c44b8a17.png',
         },
       }));
     });
@@ -74,28 +82,36 @@ export class CartComponent {
 
   updateQuantity(productId: string, item: CartItemDto) {
     console.log(item.quantity);
-    
-    this.cartService.updateQuantityOfItem(productId, item.quantity).subscribe(() => {
-      this.loadCart();
-    });
+
+    this.cartService
+      .updateQuantityOfItem(productId, item.quantity)
+      .subscribe(() => {
+        this.loadCart();
+      });
   }
   clearCart() {
-// todo in future
-console.log("will impl soon");
-
+    // todo in future
+    console.log('will impl soon');
   }
 
-  incrementQuantity(item: CartItemDto) { 
+  onClick() {
+    this.orderService.createOrder().subscribe((res) => {
+      this.clientSecret = res.data.clientSecret
+      this.isPaymentPopupVisible = true
+    });
+  }
+
+  incrementQuantity(item: CartItemDto) {
     // can't exceed the amount
-    if(item.quantity === item.productResponse.amount){
-    return item.quantity;  
+    if (item.quantity === item.productResponse.amount) {
+      return item.quantity;
     }
     return item.quantity++;
   }
 
   decrementQuantity(item: CartItemDto) {
     // stop on 1
-    if(item.quantity === 1){
+    if (item.quantity === 1) {
       return item.quantity;
     }
     return item.quantity--;

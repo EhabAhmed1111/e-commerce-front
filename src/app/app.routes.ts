@@ -26,6 +26,14 @@ export const routes: Routes = [
     loadComponent: () => import('./features/wishlist/wishlist.component').then(m => m.WishlistComponent)
   },
   {
+    path: 'payment/success',
+    loadComponent: () => import('./features/payment/payment-success/payment-success.component').then(m => m.PaymentSuccessComponent)
+  },
+  {
+    path: 'payment/failure',
+    loadComponent: () => import('./features/payment/payment-failure/payment-failure.component').then(m => m.PaymentFailureComponent)
+  },
+  {
     path: "**",
     redirectTo: '',
     pathMatch: 'full'
