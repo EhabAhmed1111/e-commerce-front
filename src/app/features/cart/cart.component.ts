@@ -20,11 +20,12 @@ import { map, Observable } from 'rxjs';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { OrderService } from '../../core/services/order/order.service';
 import { PaymentFormComponent } from '../payment/payment-form/payment-form.component';
+import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink, FontAwesomeModule, HeaderComponent, PaymentFormComponent],
+  imports: [CommonModule, RouterLink, FontAwesomeModule, HeaderComponent, PaymentFormComponent, SidebarComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss',
 })

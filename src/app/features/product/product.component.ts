@@ -8,10 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, forkJoin, Subject, Subscription } from 'rxjs';
 
 import { FooterComponent } from '../../shared/components/footer/footer.component';
+import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-product',
-  imports: [HeaderComponent, FooterComponent, FormsModule, RouterLink],
+  imports: [HeaderComponent, FooterComponent, FormsModule, RouterLink, SidebarComponent],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss',
 })
