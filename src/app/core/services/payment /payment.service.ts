@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
+import { Observable } from 'rxjs';
+import { Payment } from '../../models/data';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +19,14 @@ private stripe: Stripe | null = null;
 
   getStripe() {
     return this.stripe;
+  }
+
+  getPaymentById(id: string): Observable<Payment> {
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    const url = 'http://localhost:8080/api/v1/payment/';
+    return this.http.get<Payment>(`${url}${id}`, { headers });
   }
 }
