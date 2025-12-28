@@ -140,6 +140,6 @@
 
      <div [class.hidden]="!isPaymentPopupVisible" class="fixed top-0 left-0 w-full h-full bg-black/50 z-20">
       <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-[30vw] min-h-[400px] bg-white z-30 flex items-center justify-center rounded-xl">
-        <app-payment-form [clientSecret]="clientSecret"></app-payment-form>
+        <app-payment-form [clientSecret]="clientSecret" [paymentId]="paymentId"></app-payment-form>
       </div>
      </div>

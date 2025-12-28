@@ -28,6 +28,9 @@ export const routes: Routes = [
   {
     path: 'payment/success',
     loadComponent: () => import('./features/payment/payment-success/payment-success.component').then(m => m.PaymentSuccessComponent)
+  }, {
+    path: 'payment/pending/:id',
+    loadComponent: () => import('./features/payment/payment-processing/payment-processing.component').then(m => m.PaymentProcessingComponent)
   },
   {
     path: 'payment/failure',

@@ -227,5 +227,18 @@ createdAt: Date,
 updatedAt: Date,
 user: User,
 orderItems: CartItemDto[],
-clientSecret: string
+clientSecret: string,
+paymentId: string
+}
+
+export interface Payment {
+  message: string,
+  data: PaymentData
+}
+
+export interface PaymentData {
+  id: string,
+  amount: number,
+  currency: string,
+  status: string,
 }

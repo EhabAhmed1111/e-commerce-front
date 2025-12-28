@@ -43,6 +43,7 @@ export class CartComponent {
   totalCartItems$!: number;
 
   clientSecret: string = '';
+  paymentId: string = '';
 
   // isPaymentHidden: boolean = true;
   isPaymentPopupVisible: boolean = false;
@@ -97,6 +98,7 @@ export class CartComponent {
   onClick() {
     this.orderService.createOrder().subscribe((res) => {
       this.clientSecret = res.data.clientSecret
+      this.paymentId = res.data.paymentId
       this.isPaymentPopupVisible = true
     });
   }
