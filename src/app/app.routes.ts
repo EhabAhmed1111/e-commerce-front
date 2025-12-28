@@ -35,6 +35,9 @@ export const routes: Routes = [
   {
     path: 'payment/failure',
     loadComponent: () => import('./features/payment/payment-failure/payment-failure.component').then(m => m.PaymentFailureComponent)
+  }, {
+    path: 'my-products',
+    loadComponent: () => import('./features/vendor/vendor-product/vendor-product.component').then(m => m.VendorProductComponent)
   },
   {
     path: "**",

@@ -27,6 +27,6 @@ private stripe: Stripe | null = null;
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
     const url = 'http://localhost:8080/api/v1/payment/';
-    return this.http.get<Payment>(`${url}${id}`, { headers });
+    return this.http.get<Payment>(`${url}${id}`, {headers});
   }
 }

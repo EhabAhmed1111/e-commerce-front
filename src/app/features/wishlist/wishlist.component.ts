@@ -7,11 +7,12 @@ import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrash, faCartPlus, faHeartBroken, faStar } from '@fortawesome/free-solid-svg-icons';
 import { WishlistService } from '../../core/services/wishlist/wishlist.service';
+import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-wishlist',
   standalone: true,
-  imports: [HeaderComponent, CommonModule, RouterLink, FontAwesomeModule],
+  imports: [HeaderComponent, CommonModule, RouterLink, FontAwesomeModule, SidebarComponent],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.scss'
 })

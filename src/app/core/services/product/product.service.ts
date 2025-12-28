@@ -26,5 +26,14 @@ export class ProductService {
   fetchProductsByVendorId(id: string): Observable<ProductsForVendorResponse> {
     const url: string = 'http://localhost:8080/api/v1/';
     return this.http.get<ProductsForVendorResponse>(`${url}products/vendor/${id}`)
+  }  
+  
+  fetchProductForCurrentVendor(): Observable<ProductsForVendorResponse> {
+    const url: string = 'http://localhost:8080/api/v1/';
+    const headers = {
+       'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    }
+    return this.http.get<ProductsForVendorResponse>(`${url}products/vendor`, {headers})
   }
 }

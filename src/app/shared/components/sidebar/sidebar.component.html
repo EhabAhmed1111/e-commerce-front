@@ -1,1 +1,86 @@
-<p>sidebar works!</p>
+@if(role === 'VENDOR' || role === 'ADMIN') {
+<div class="fixed z-50 bg-black top-0 min-h-screen">
+  @if(isSidebarOpen) {
+    <div class="relative h-screen flex items-center justify-center transition-all duration-300 ease-in-out">
+      <aside class="h-full w-64 bg-slate-900/95 backdrop-blur-xl border-r border-white/10 flex flex-col shadow-2xl transition-all duration-300 ease-in-out">
+  <!-- Logo / Header Area (Optional, can be removed if not needed) -->
+  <div class="p-6 border-b border-white/5">
+    <h2 class="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+      Your Information
+    </h2>
+  </div>
+
+  <nav class="flex-1 overflow-y-auto py-6 px-3">
+    <ul class="space-y-2">
+      <!-- Dashboard: Admin & Vendor -->
+      @if(role === 'VENDOR' || role === 'ADMIN') {
+        <li>
+          <a routerLink="/dashboard" 
+             class="group flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 ease-out border border-transparent hover:border-white/5 hover:shadow-lg hover:shadow-purple-500/10">
+            <i class="pi pi-th-large text-lg group-hover:text-purple-400 transition-colors duration-200"></i>
+            <span class="font-medium tracking-wide">Dashboard</span>
+            <i class="pi pi-chevron-right ml-auto text-xs opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-2 group-hover:translate-x-0"></i>
+          </a>
+        </li>
+      }
+      
+      <!-- My Products: Admin -->
+    @if(role === 'ADMIN') {
+      <li>
+        <a routerLink="/vendors" 
+           class="group flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 ease-out border border-transparent hover:border-white/5 hover:shadow-lg hover:shadow-blue-500/10">
+          <i class="pi pi-users text-lg group-hover:text-blue-400 transition-colors duration-200"></i>
+          <span class="font-medium tracking-wide">Vendors</span>
+          <i class="pi pi-chevron-right ml-auto text-xs opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-2 group-hover:translate-x-0"></i>
+        </a>
+      </li>
+    }
+      <!-- My Products: Vendor & Admin -->
+      @if(role === 'VENDOR') {
+        <li>
+          <a routerLink="/my-products" 
+             class="group flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 ease-out border border-transparent hover:border-white/5 hover:shadow-lg hover:shadow-blue-500/10">
+            <i class="pi pi-box text-lg group-hover:text-blue-400 transition-colors duration-200"></i>
+            <span class="font-medium tracking-wide">My Products</span>
+            <i class="pi pi-chevron-right ml-auto text-xs opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-2 group-hover:translate-x-0"></i>
+          </a>
+        </li>
+      }
+      <!-- Orders: Vendor & Admin -->
+      @if(role === 'VENDOR') {
+        <li>
+          <a routerLink="/orders" 
+             class="group flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 ease-out border border-transparent hover:border-white/5 hover:shadow-lg hover:shadow-emerald-500/10">
+            <i class="pi pi-shopping-cart text-lg group-hover:text-emerald-400 transition-colors duration-200"></i>
+            <span class="font-medium tracking-wide">Orders</span>
+            <i class="pi pi-chevron-right ml-auto text-xs opacity-0 group-hover:opacity-100 transition-all duration-200 -translate-x-2 group-hover:translate-x-0"></i>
+          </a>
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <!-- Footer / User Profile Area (Optional placeholder) -->
+  <div class="p-4 border-t border-white/5">
+    <div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-white/5 border border-white/5">
+      <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center text-xs font-bold text-white">
+        {{ role?.charAt(0) }}
+      </div>
+      <div class="flex flex-col">
+        <span class="text-xs text-slate-400 font-medium">Signed in as</span>
+        <span class="text-sm text-white font-semibold capitalize">{{ role?.toLowerCase() }}</span>
+      </div>
+    </div>
+  </div>
+  
+
+
+  </aside>
+  </div>
+  
+  }
+  <button (click)="toggleSidebar()" [class.left-[16rem]]="isSidebarOpen" class="rounded-full text-white text-xs p-2 bg-blue-500 hover:bg-blue-700 absolute top-20 left-4 z-50 transition-all duration-300 ease-in-out">
+<fa-icon [icon]="faArrow" ></fa-icon>
+</button>
+</div>
+}

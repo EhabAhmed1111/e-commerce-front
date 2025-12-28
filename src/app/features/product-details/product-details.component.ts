@@ -14,10 +14,11 @@ import { NgFor, NgClass } from '@angular/common';
 import { JwtService } from '../../core/services/auth/jwt/jwt.service';
 import { CartService } from '../../core/services/cart/cart.service';
 import { WishlistService } from '../../core/services/wishlist/wishlist.service';
+import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-product-details',
-  imports: [RouterLink, FaIconComponent, HeaderComponent, FooterComponent, FormsModule, NgFor, NgClass, FormsModule],
+  imports: [RouterLink, FaIconComponent, HeaderComponent, FooterComponent, FormsModule, NgFor, NgClass, SidebarComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss',
   /* for using custom element tags */
