@@ -6,10 +6,11 @@ import { ProductsForShow } from '../../../core/models/data';
 import { RouterLink } from '@angular/router';
 import { NgClass } from "../../../../../node_modules/@angular/common/common_module.d-NEF7UaHr";
 import { SidebarComponent } from '../../../shared/components/sidebar/sidebar.component';
+import { AddProductComponent } from '../add-product/add-product.component';
 
 @Component({
   selector: 'app-vendor-product',
-  imports: [HeaderComponent, FooterComponent, RouterLink, SidebarComponent],
+  imports: [HeaderComponent, FooterComponent, RouterLink, SidebarComponent, AddProductComponent],
   templateUrl: './vendor-product.component.html',
   styleUrl: './vendor-product.component.scss'
 })
@@ -18,6 +19,8 @@ export class VendorProductComponent {
 products: ProductsForShow[] = [];
 
 constructor(private productService: ProductService) {}
+
+isAddProductFormOpen: boolean = false;
 
 ngOnInit() {
   this.productService.fetchProductForCurrentVendor().subscribe((res) => {
@@ -30,5 +33,19 @@ ngOnInit() {
       };
     });
   })
+}
+
+openAddProductForm() {
+  this.isAddProductFormOpen = true;
+}
+
+closerAddProductForm(isFormOpen: boolean) {
+  this.isAddProductFormOpen = isFormOpen;
+}
+
+removeProduct(id: string) {
+this.productService.deleteProduct(id).subscribe(() => {
+  this.products = this.products.filter(product => product.id !== id);
+})
 }
 }
