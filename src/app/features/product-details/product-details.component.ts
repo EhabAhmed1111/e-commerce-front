@@ -37,7 +37,7 @@ stars = Array(5).fill(faStar);
 productId: string = '';
 review: Review = {} as Review;
 isReviewButtonLoading: boolean = false;
-areYouOwner: boolean = false;
+isOwner: boolean = false;
 quantity = 0;
 isFavorite = signal(false);
 
@@ -53,7 +53,7 @@ isFavorite = signal(false);
         this.product = product.data;
         this.selectedImage = this.product.medias[0].url;
         if(this.product.vendor.email === this.jwtService.getEmailFromToken()) {
-          this.areYouOwner = true;
+          this.isOwner = true;
         }
 
         /* here we will get all products with thumbnail for this vendor */
@@ -98,6 +98,7 @@ isFavorite = signal(false);
 
 submitReview() {
   this.isReviewButtonLoading = true;
+  // todo see if there is another way to handle error in subscribe method
   this.reviewService.addReviews(this.productId, {rating: this.rating, content: this.comment}).subscribe((review: ReviewResponseForAddReview) => {
     this.reviews.push(review.data);
     this.isReviewButtonLoading = false;

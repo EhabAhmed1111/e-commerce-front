@@ -271,7 +271,7 @@
         <div class="flex items-center gap-4">
           <button
             (click)="toggleAddReviewModal()"
-            [ngClass]="{ hidden: areYouOwner }"
+            [ngClass]="{ hidden: isOwner }"
             class="px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold text-sm rounded-full hover:shadow-lg hover:shadow-blue-600/30 hover:-translate-y-0.5 transition-all duration-300 active:scale-[0.98]"
           >
             Add Review

@@ -242,3 +242,13 @@ export interface PaymentData {
   currency: string,
   status: string,
 }
+
+
+export interface AddProductRequest {
+  productName: string,
+  price: number,
+  brand: string,
+  amount: number,
+  description: string,
+  categoryName: string
+}
