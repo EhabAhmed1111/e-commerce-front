@@ -267,3 +267,19 @@ export interface OrderItemsResponseData {
   buyerName: string,
   orderStatus: string
 }
+
+export interface VendorResponse {
+  message: string,
+  data: Vendor
+}
+export interface Vendor {
+ vendorResponses: VendorsResponse[],
+ totalNumberOfVendors: number
+}
+
+export interface VendorsResponse {
+  id: string,
+  firstName: string,
+  lastName: string,
+}
+  
