@@ -252,3 +252,18 @@ export interface AddProductRequest {
   description: string,
   categoryName: string
 }
+
+export interface OrderItemsResponse {
+  message: string,
+  data: OrderItemsResponseData[]
+}
+
+export interface OrderItemsResponseData {
+  id: string,
+  unitePrice: number,
+  totalPrice: number,
+  createdAt: Date,
+  quantity: number,
+  buyerName: string,
+  orderStatus: string
+}

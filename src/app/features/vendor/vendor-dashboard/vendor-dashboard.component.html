@@ -1,4 +1,43 @@
 <p>vendor-dashboard works!</p>
 
-
- <app-sidebar class="rounded-lg h-full"></app-sidebar>
+<app-sidebar class="rounded-lg h-full"></app-sidebar>
+<div class="container mx-auto flex flex-col gap-4">
+  <div class="flex flex-row justify-between">
+    <div>{{ orders.length }}</div>
+    <div>all number of active product</div>
+    <div>maybe reating of vendor</div>
+    <!-- I could calc it from the orders -->
+    <div>total profits</div>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2">
+    <!-- this is the vendor charts -->
+    <div></div>
+    <!-- this is the vendor orders table -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Buyer Name</th>
+          <th>Created At</th>
+          <th>total price</th>
+          <th>Order Status</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        @for (order of orders; track order.id) {
+        <tr class="py-2 hover:bg-gray-100 cursor-pointer">
+          <td>{{ order.id }}</td>
+          <td>{{ order.buyerName }}</td>
+          <td>{{ order.createdAt }}</td>
+          <td>{{ order.totalPrice }}</td>
+          <td>
+            <div [class.bg-yellow-100]="order.orderStatus=== 'PENDING'" [class.text-yellow-800]="order.orderStatus=== 'PENDING'" class="flex flex-row gap-2 items-center justify-center py-1 rounded-lg bg-gray-200">
+              <span class="capitalize">{{ order.orderStatus }}</span>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
