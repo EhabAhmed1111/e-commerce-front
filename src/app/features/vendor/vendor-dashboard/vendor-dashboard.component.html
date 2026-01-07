@@ -1,43 +1,96 @@
-<p>vendor-dashboard works!</p>
-
+<app-header></app-header>
 <app-sidebar class="rounded-lg h-full"></app-sidebar>
-<div class="container mx-auto flex flex-col gap-4">
-  <div class="flex flex-row justify-between">
-    <div>{{ orders.length }}</div>
-    <div>all number of active product</div>
-    <div>maybe reating of vendor</div>
-    <!-- I could calc it from the orders -->
-    <div>total profits</div>
+<div class="container mx-auto flex flex-col gap-6 mt-[6rem] px-4">
+  <!-- Summary Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+      <div class="text-gray-500 text-sm font-medium mb-2">Total Orders</div>
+      <div class="text-3xl font-bold text-gray-900">{{ orders.length }}</div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+      <div class="text-gray-500 text-sm font-medium mb-2">Active Products</div>
+      <div class="text-3xl font-bold text-gray-900">{{ activeProducts }}</div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+      <div class="text-gray-500 text-sm font-medium mb-2">Vendor Rating</div>
+      <div class="text-3xl font-bold text-gray-900">4.8</div>
+    </div>
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+      <div class="text-gray-500 text-sm font-medium mb-2">Total Profits</div>
+      <div class="text-3xl font-bold text-green-600">
+        {{ totalProfits | currency }}
+      </div>
+    </div>
   </div>
-  <div class="grid grid-cols-1 md:grid-cols-2">
-    <!-- this is the vendor charts -->
-    <div></div>
-    <!-- this is the vendor orders table -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Order ID</th>
-          <th>Buyer Name</th>
-          <th>Created At</th>
-          <th>total price</th>
-          <th>Order Status</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-gray-200">
-        @for (order of orders; track order.id) {
-        <tr class="py-2 hover:bg-gray-100 cursor-pointer">
-          <td>{{ order.id }}</td>
-          <td>{{ order.buyerName }}</td>
-          <td>{{ order.createdAt }}</td>
-          <td>{{ order.totalPrice }}</td>
-          <td>
-            <div [class.bg-yellow-100]="order.orderStatus=== 'PENDING'" [class.text-yellow-800]="order.orderStatus=== 'PENDING'" class="flex flex-row gap-2 items-center justify-center py-1 rounded-lg bg-gray-200">
-              <span class="capitalize">{{ order.orderStatus }}</span>
-            </div>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Vendor Charts -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+      <h3 class="text-lg font-semibold text-gray-900 mb-4">Monthly Profits</h3>
+      <div class="h-[300px] w-full">
+        <canvas
+          baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [type]="'bar'"
+        >
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Vendor Orders Table -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="p-6 border-b border-gray-100">
+        <h3 class="text-lg font-semibold text-gray-900">Recent Orders</h3>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-gray-600">
+          <thead class="bg-gray-50 text-gray-900 font-medium">
+            <tr>
+              <th class="px-6 py-4">Order ID</th>
+              <th class="px-6 py-4">Buyer Name</th>
+              <th class="px-6 py-4">Created At</th>
+              <th class="px-6 py-4">Total Price</th>
+              <th class="px-6 py-4">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            @for (order of orders; track order.id) {
+            <tr class="hover:bg-gray-50 transition-colors cursor-pointer">
+              <td class="px-6 py-4 font-medium text-gray-900">
+                #{{ order.id }}
+              </td>
+              <td class="px-6 py-4">{{ order.buyerName }}</td>
+              <td class="px-6 py-4">
+                {{ order.createdAt | date : "mediumDate" }}
+              </td>
+              <td class="px-6 py-4 font-medium text-gray-900">
+                {{ order.totalPrice | currency }}
+              </td>
+              <td class="px-6 py-4">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
+                  [class.bg-yellow-100]="order.orderStatus === 'PENDING'"
+                  [class.text-yellow-800]="order.orderStatus === 'PENDING'"
+                  [class.bg-green-100]="order.orderStatus === 'COMPLETED'"
+                  [class.text-green-800]="order.orderStatus === 'COMPLETED'"
+                  [class.bg-red-100]="order.orderStatus === 'CANCELLED'"
+                  [class.text-red-800]="order.orderStatus === 'CANCELLED'"
+                >
+                  {{ order.orderStatus.toLowerCase() }}
+                </span>
+              </td>
+            </tr>
+            } @empty {
+            <tr>
+              <td colspan="5" class="px-6 py-8 text-center text-gray-500">
+                No orders found
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
