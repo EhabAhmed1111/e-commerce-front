@@ -6,7 +6,7 @@ import { LoginRequest } from '../../../core/models/data';
 
 @Component({
   selector: 'app-login',
-  imports: [RouterOutlet, RouterLink, ReactiveFormsModule],
+  imports: [ RouterLink, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -25,7 +25,7 @@ export class LoginComponent {
     }
     this.loginService.login(request).subscribe((response) => {
       localStorage.setItem('token', response.data)
+      this.router.navigate(['/home'])
     })
-    this.router.navigate(['/home'])
   }
 }

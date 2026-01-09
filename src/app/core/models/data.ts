@@ -259,13 +259,11 @@ export interface OrderItemsResponse {
 }
 
 export interface OrderItemsResponseData {
-  id: string,
-  unitePrice: number,
   totalPrice: number,
   createdAt: Date,
-  quantity: number,
   buyerName: string,
   orderStatus: string
+  orderId: string
 }
 
 export interface VendorResponse {

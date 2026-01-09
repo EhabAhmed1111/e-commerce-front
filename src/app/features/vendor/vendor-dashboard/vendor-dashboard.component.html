@@ -5,6 +5,9 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
       <div class="text-gray-500 text-sm font-medium mb-2">Total Orders</div>
+      <!-- this will change because this get the order item lenght and if 
+       there is 2 order item within same order for same vendor it will count it as 2 orders
+       but it actually shoould count as one order and sum the total price of both order items -->
       <div class="text-3xl font-bold text-gray-900">{{ orders.length }}</div>
     </div>
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
@@ -55,10 +58,10 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
-            @for (order of orders; track order.id) {
+            @for (order of orders; track order.orderId) {
             <tr class="hover:bg-gray-50 transition-colors cursor-pointer">
               <td class="px-6 py-4 font-medium text-gray-900">
-                #{{ order.id }}
+                #{{ order.orderId }}
               </td>
               <td class="px-6 py-4">{{ order.buyerName }}</td>
               <td class="px-6 py-4">

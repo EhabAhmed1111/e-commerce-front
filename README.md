@@ -12,6 +12,17 @@ A modern Angular e-commerce application built with Angular 19, featuring a clean
 - **Font Awesome**: v7.1.0
 - **PrimeIcons**: v7.0.0
 
+## ✨ Key Features
+
+- **🛍️ Product Management**: Browse products with advanced filtering and detailed views.
+- **🛒 Shopping Cart**: Dedicated cart page for managing selected items.
+- **❤️ Wishlist**: Save favorite items for later.
+- **💳 Secure Payments**: Integrated Stripe payment flow for secure transactions.
+- **👨‍💼 Vendor Dashboard**: Comprehensive dashboard for vendors to manage products and view monthly profits with charts.
+- **🔐 Authentication**: Secure login and registration system with JWT support.
+- **📱 Responsive Design**: Fully responsive UI built with Tailwind CSS.
+- **🎨 Modern UI**: Premium design with hero banner carousel and smooth animations.
+
 ## 📂 Current Project Structure
 
 ```
@@ -31,9 +42,15 @@ src/
  │    │    └── model/                # Shared models
  │    │
  │    ├── features/                  # Feature modules
- │    │    ├── auth/                 # Authentication module
- │    │    ├── home/                 # Home page
- │    │    └── product/              # Product features
+ │    │    ├── admin/                # Admin dashboard
+ │    │    ├── auth/                 # Authentication (Login/Register)
+ │    │    ├── cart/                 # Shopping cart
+ │    │    ├── home/                 # Landing page with Hero Banner
+ │    │    ├── payment/              # Payment processing (Stripe)
+ │    │    ├── product/              # Product listing
+ │    │    ├── product-details/      # Product details and reviews
+ │    │    ├── vendor/               # Vendor dashboard
+ │    │    └── wishlist/             # User wishlist
  │    │
  │    ├── app.component.*            # Root component
  │    ├── app.config.ts              # Application configuration
@@ -49,14 +66,17 @@ src/
 This project uses **Tailwind CSS v3** for styling with a custom theme configuration:
 
 ### Custom Theme Colors
+
 - **Primary**: `#6366f1` (Indigo)
 - **Secondary**: `#d946ef` (Fuchsia)
 - **Accent**: `#22c55e` (Green)
 
 ### Custom Animations
+
 - **slideDown**: Smooth slide-down animation for page transitions
 
 ### Configuration Files
+
 - `tailwind.config.js` - Tailwind theme configuration
 - `postcss.config.js` - PostCSS configuration
 - `src/styles.scss` - Global styles with Tailwind directives
@@ -64,6 +84,7 @@ This project uses **Tailwind CSS v3** for styling with a custom theme configurat
 ## 🛠️ Development
 
 ### Prerequisites
+
 - Node.js (LTS version recommended)
 - npm or yarn
 
@@ -134,44 +155,53 @@ ng test
 ## 📝 Naming Conventions
 
 ### Components
+
 - **Format**: `feature-name.component.ts`
 - **Selector**: `app-feature-name`
 - **Example**: `product-card.component.ts` → `<app-product-card>`
 
 ### Services
+
 - **Format**: `feature-name.service.ts`
 - **Example**: `auth.service.ts`, `cart.service.ts`
 
 ### Guards
+
 - **Format**: `feature.guard.ts`
 - **Example**: `auth.guard.ts`
 
 ### Models
+
 - **Format**: `feature.model.ts`
 - **Example**: `product.model.ts`
 
 ### Styles
+
 - **Component styles**: `component-name.component.scss`
 - **Global styles**: `styles.scss`
 
 ## 🎯 Design Principles
 
 ### 1. Modular Architecture
+
 - Feature-based organization
 - Lazy-loaded routes for better performance
 - Separation of concerns (core, shared, features)
 
 ### 2. Modern Angular
+
 - Standalone components
 - Signals for reactivity
 - Route animations for smooth transitions
 
 ### 3. Responsive Design
+
 - Mobile-first approach with Tailwind CSS
 - Responsive utilities and breakpoints
 - Custom animations and transitions
 
 ### 4. Code Quality
+
 - TypeScript strict mode
 - SCSS for component styling
 - Consistent naming conventions
@@ -194,6 +224,7 @@ ng test
 ## 🐛 Troubleshooting
 
 ### Styling Issues
+
 If you encounter styling issues after updating dependencies:
 
 1. Ensure Tailwind CSS v3 is installed (not v4)
@@ -202,6 +233,7 @@ If you encounter styling issues after updating dependencies:
 4. Restart the development server
 
 ### Build Errors
+
 If you encounter build errors:
 
 1. Clear the Angular cache: `rm -rf .angular`
