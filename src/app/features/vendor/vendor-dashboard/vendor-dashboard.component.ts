@@ -82,6 +82,7 @@ export class VendorDashboardComponent implements OnInit {
         this.monthlyProfits[date.getMonth()] += order.totalPrice;
       });
 
+      /* this will change to get the profit from order that already complete not all  */
       this.totalProfits = this.orders.reduce(
         (acc, order) => acc + order.totalPrice,
         0
@@ -110,16 +111,16 @@ export class VendorDashboardComponent implements OnInit {
   }
 }
 
-export type MONTH =
-  | 'January'
-  | 'February'
-  | 'March'
-  | 'April'
-  | 'May'
-  | 'June'
-  | 'July'
-  | 'August'
-  | 'September'
-  | 'October'
-  | 'November'
-  | 'December';
+// export type MONTH =
+//   | 'January'
+//   | 'February'
+//   | 'March'
+//   | 'April'
+//   | 'May'
+//   | 'June'
+//   | 'July'
+//   | 'August'
+//   | 'September'
+//   | 'October'
+//   | 'November'
+//   | 'December';
