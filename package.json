@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/cdk": "^19.2.19",
     "@angular/common": "^19.2.0",
     "@angular/compiler": "^19.2.0",
     "@angular/core": "^19.2.0",
@@ -23,7 +24,7 @@
     "@ngrx/effects": "^19.2.1",
     "@ngrx/store": "^19.2.1",
     "@stripe/stripe-js": "^8.6.0",
-    "chart.js": "^4.5.1",
+    "chart.js": "^3.9.1",
     "jwt-decode": "^4.0.0",
     "ng2-charts": "^8.0.0",
     "normalize": "^0.3.1",
