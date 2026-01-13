@@ -65,12 +65,6 @@ src/
 
 This project uses **Tailwind CSS v3** for styling with a custom theme configuration:
 
-### Custom Theme Colors
-
-- **Primary**: `#6366f1` (Indigo)
-- **Secondary**: `#d946ef` (Fuchsia)
-- **Accent**: `#22c55e` (Green)
-
 ### Custom Animations
 
 - **slideDown**: Smooth slide-down animation for page transitions
