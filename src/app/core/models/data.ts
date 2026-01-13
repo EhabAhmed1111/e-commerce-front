@@ -217,18 +217,31 @@ export interface Wishlist {
 
 export interface OrderResponse {
   message: string,
-  data: OrderResponseData
+  data: OrderWithPayment
 }
 
+export interface OrderWithPayment {
+  orderResponseData: OrderResponseData,
+  clientSecret: string,
+paymentId: string
+}
+
+export interface DashboardDataResponse{
+  message: string,
+  data: DashboardData
+}
+export interface DashboardData{
+  orderResponses: OrderResponseData[],
+  totalUsers: number,
+  totalProducts: number,
+}
 export interface OrderResponseData{
 id: string,
 totalPrice: number,
 createdAt: Date,
-updatedAt: Date,
+orderStatus: string,
 user: User,
 orderItems: CartItemDto[],
-clientSecret: string,
-paymentId: string
 }
 
 export interface Payment {
